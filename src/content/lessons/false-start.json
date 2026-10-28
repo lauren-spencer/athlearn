@@ -1,0 +1,99 @@
+{
+  "id": "false-start",
+  "sport": "football",
+  "locale": "en",
+  "unit": "Penalties",
+  "unitOrder": 2,
+  "title": "False start",
+  "order": 4,
+  "minutes": 3,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it exists",
+      "title": "A fair start",
+      "art": "set",
+      "body": "Defenders have to guess when the ball will be snapped. If blockers could ==move early==, they'd get an unfair head start on every play.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The rule",
+      "title": "Set means set",
+      "art": "set",
+      "body": "Before the snap, offensive linemen must hold ==completely still== for a full second. Any ==sudden move== that looks like the start of the play is a false start.",
+      "note": "Ref signal: forearms rolled over each other in front of the body."
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 1,
+      "title": "The flinch",
+      "art": "flinch",
+      "body": "The tackle jerks his shoulders a split second early. The ball never moved, but the flag comes out: that ==flinch== is a false start.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 2,
+      "title": "Legal motion",
+      "art": "motion",
+      "body": "One player, usually a receiver, may move ==sideways or backward== before the snap. It's legal as long as he's ==not moving forward== when the ball is snapped.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 3,
+      "title": "The hard count",
+      "art": "offside",
+      "body": "Quarterbacks bark a loud fake count to ==draw the defense offside==. If a defender jumps into the neutral zone, the foul is on ==the defense== instead.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The cost",
+      "title": "Five yards back",
+      "art": "back5",
+      "body": "A false start is a ==dead-ball foul==: the play never happens. The offense loses ==5 yards== and replays the down.",
+      "note": null
+    },
+    {
+      "type": "play",
+      "prompt": "Why was the flag thrown?",
+      "play": {
+        "duration": 2.2,
+        "clock": "Q2 4:05",
+        "scene": "oline",
+        "actors": {
+          "rt": { "side": "O", "path": [[0, 228, 138], [0.9, 228, 138], [1.0, 233, 144], [2.2, 233, 144]] },
+          "qb": { "side": "O", "label": "QB", "path": [[0, 180, 158]] },
+          "de": { "side": "X", "path": [[0, 256, 120]] }
+        },
+        "ball": [[0, 180, 131]],
+        "events": [
+          { "at": 0.3, "tag": "Set" },
+          { "at": 1.0, "ring": ["rt"] },
+          { "at": 1.1, "tag": "Moved early", "tone": "bad" },
+          { "at": 1.3, "flag": true }
+        ]
+      },
+      "options": [
+        "The center snapped it too early",
+        "The right tackle moved before the snap",
+        "A defender jumped offside",
+        "Too many players on the field"
+      ],
+      "answer": 1,
+      "explain": "The ball never moved, but the right tackle flinched out of his stance. That's a false start: 5 yards, replay the down."
+    },
+    {
+      "type": "check",
+      "prompt": "What happens after a false start?",
+      "options": ["Back 5 yards, replay the down", "Back 10 yards", "Loss of down", "Automatic first down for the defense"],
+      "answer": 0,
+      "explain": "The play is dead before it starts. The offense moves back 5 yards and runs the same down again."
+    }
+  ]
+}

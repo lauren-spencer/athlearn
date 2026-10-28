@@ -1,0 +1,101 @@
+{
+  "id": "downs",
+  "sport": "football",
+  "locale": "en",
+  "unit": "The basics",
+  "unitOrder": 1,
+  "title": "Downs and distance",
+  "order": 2,
+  "minutes": 4,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it exists",
+      "title": "A reason to move",
+      "art": "chains",
+      "body": "Without downs, an offense could hold the ball forever. Downs force a team to ==keep gaining ground== or hand the ball over.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The rule",
+      "title": "Four tries, ten yards",
+      "art": "fourtries",
+      "body": "The offense gets ==four downs== to gain ==10 yards==. Reach the yellow line to gain and it earns a fresh set of four.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 1,
+      "title": "2nd & 6",
+      "art": "gain4",
+      "body": "A 4-yard run on 1st & 10 makes it ==2nd & 6==: second down, six yards still to go. You'll hear the down and distance before every snap.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 2,
+      "title": "Moving the chains",
+      "art": "movechains",
+      "body": "Cross the line to gain and it's a ==first down==. The sideline crew moves the 10-yard chain to the new spot and the count starts over.",
+      "note": "Ref signal: an arm pointed toward the defense's goal line."
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 3,
+      "title": "Fourth down",
+      "art": "fourth",
+      "body": "On 4th down most teams ==punt== it away or try a ==field goal==. Going for it is a gamble: come up short and the other team gets the ball right there.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The cost",
+      "title": "Turnover on downs",
+      "art": "turnover",
+      "body": "Fail on 4th down and the defense takes over ==at that spot==. That's why short 4th-down plays are some of the most tense in the game.",
+      "note": null
+    },
+    {
+      "type": "play",
+      "prompt": "What's the next down?",
+      "play": {
+        "duration": 2.8,
+        "clock": "3rd & 6 · 6:20",
+        "scene": {
+          "los": 140,
+          "lineToGain": 98,
+          "players": [
+            { "side": "O", "x": 132, "y": 150 }, { "side": "O", "x": 156, "y": 150 }, { "side": "O", "x": 180, "y": 150 },
+            { "side": "O", "x": 204, "y": 150 }, { "side": "O", "x": 228, "y": 150 },
+            { "side": "X", "x": 150, "y": 130 }, { "side": "X", "x": 210, "y": 130 }
+          ]
+        },
+        "actors": {
+          "qb": { "side": "O", "label": "QB", "path": [[0, 180, 166], [0.6, 172, 170], [1.2, 164, 176]] },
+          "rb": { "side": "O", "label": "RB", "trail": true, "path": [[0, 180, 192], [0.6, 180, 172], [1.6, 186, 122], [2.2, 188, 112]] },
+          "lb": { "side": "X", "path": [[0, 196, 96], [1.6, 192, 104], [2.2, 190, 106]] }
+        },
+        "ball": [[0, 180, 166], [0.6, 180, 172], [1.6, 186, 122], [2.2, 188, 112]],
+        "events": [
+          { "at": 0.6, "tag": "Handoff" },
+          { "at": 2.2, "ring": ["rb", "lb"] },
+          { "at": 2.3, "tag": "Short of the line", "tone": "bad" }
+        ]
+      },
+      "options": ["1st & 10", "4th & 2", "3rd & 2", "2nd & 6"],
+      "answer": 1,
+      "explain": "It was 3rd & 6 and the run gained 4. Two yards short of the line to gain, so it's 4th & 2."
+    },
+    {
+      "type": "check",
+      "prompt": "It's 4th & 9 at midfield. What do most teams do?",
+      "options": ["Punt", "Go for it", "Kick a field goal", "Replay 3rd down"],
+      "answer": 0,
+      "explain": "Nine yards is a lot to gain on one play, and midfield is too far for most field goals. Teams punt to push the other offense back."
+    }
+  ]
+}

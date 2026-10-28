@@ -1,0 +1,103 @@
+{
+  "id": "roughing",
+  "sport": "football",
+  "locale": "en",
+  "unit": "Penalties",
+  "unitOrder": 2,
+  "title": "Roughing the passer",
+  "order": 6,
+  "minutes": 4,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it exists",
+      "title": "Protect the passer",
+      "art": "protect",
+      "body": "A quarterback in his throwing motion has his ==eyes downfield== and can't brace for contact. The rule keeps the most ==defenseless player== on the field from taking needless hits.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The rule",
+      "title": "No late, high or low hits",
+      "art": "define",
+      "body": "Once the ==ball is out==, a rusher gets about one step to pull up. He also can't hit the passer in the ==head or neck==, or at the ==knees or below==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 1,
+      "title": "Too late",
+      "art": "late",
+      "body": "A rusher gets about ==one step== after the ball leaves. Here he takes two more and drives through the passer. That's roughing.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 2,
+      "title": "Head and knees",
+      "art": "zones",
+      "body": "Even an on-time hit is a foul if it lands on the ==head or neck== or goes ==low at the knees==. The strike zone is chest to thighs.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 3,
+      "title": "The body slam",
+      "art": "slam",
+      "body": "A rusher can't ==land on the passer with his full body weight==. The legal move is to wrap him up and ==roll off== to the side.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The cost",
+      "title": "Fifteen yards",
+      "art": "flag",
+      "body": "Roughing the passer is a ==15-yard== penalty plus an ==automatic first down==. It's one of the costliest flags a defense can draw.",
+      "note": "Ref signal: the personal-foul signal, then a throwing motion."
+    },
+    {
+      "type": "play",
+      "prompt": "Why was the flag thrown?",
+      "play": {
+        "duration": 3.2,
+        "clock": "Q4 2:14",
+        "scene": "olineFull",
+        "actors": {
+          "qb": { "side": "O", "label": "QB", "path": [[0, 180, 154], [0.8, 180, 176], [2.1, 180, 176]] },
+          "rush": { "side": "X", "trail": true, "path": [[0, 104, 120], [1.5, 146, 182], [2.1, 168, 180]] }
+        },
+        "ball": [[0, 180, 154], [1.0, 180, 176], [1.5, 292, 52]],
+        "events": [
+          { "at": 1.0, "tag": "Ball's out" },
+          { "at": 2.1, "ring": ["qb", "rush"] },
+          { "at": 2.2, "tag": "Late hit", "tone": "bad" },
+          { "at": 2.3, "flag": true }
+        ]
+      },
+      "options": [
+        "The rusher hit the quarterback low",
+        "The hit came after the ball was gone",
+        "The quarterback was out of the pocket",
+        "Clean hit, no foul"
+      ],
+      "answer": 1,
+      "explain": "The ball was already out when the rusher arrived. He had time to pull up and drove through the passer anyway: 15 yards and an automatic first down."
+    },
+    {
+      "type": "check",
+      "prompt": "Which hit on the passer is legal?",
+      "options": [
+        "Hitting his helmet as he throws",
+        "Wrapping him at the waist as he releases",
+        "Diving at his knees",
+        "Landing on him with full body weight"
+      ],
+      "answer": 1,
+      "explain": "An on-time hit in the strike zone, chest to thighs, is legal. High hits, low hits and body slams are all roughing."
+    }
+  ]
+}

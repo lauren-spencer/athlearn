@@ -1,0 +1,99 @@
+{
+  "id": "scoring",
+  "sport": "football",
+  "locale": "en",
+  "unit": "The basics",
+  "unitOrder": 1,
+  "title": "Scoring",
+  "order": 3,
+  "minutes": 4,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it exists",
+      "title": "Points for progress",
+      "art": "scoreboard",
+      "body": "Scoring rewards different kinds of success. Reaching the end zone is worth the most, but ==getting close== still earns something.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The rule",
+      "title": "Touchdown",
+      "art": "td",
+      "body": "Carry the ball into the end zone, or ==catch it there== with both feet down. That's a ==touchdown==, worth 6 points.",
+      "note": "Ref signal: both arms straight up."
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 1,
+      "title": "The try",
+      "art": "pat",
+      "body": "After a touchdown the team gets one bonus snap. ==Kick it== through the uprights for 1 point, or ==run or pass== it in again for 2.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 2,
+      "title": "Field goal",
+      "art": "fg",
+      "body": "When a drive stalls close enough, the team can ==kick it through the uprights== on any down for ==3 points==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 3,
+      "title": "Safety",
+      "art": "safety",
+      "body": "If the offense is tackled ==in its own end zone==, the defense scores a ==safety==: 2 points, and the defense's team gets the ball back on a kick.",
+      "note": "Ref signal: palms pressed together above the head."
+    },
+    {
+      "type": "card",
+      "kicker": "The stakes",
+      "title": "Do the math",
+      "art": "scoreboard",
+      "body": "A touchdown plus a kick is 7, so a ==7-point lead== is called a one-score game. A ==3-point lead== can vanish on one field goal. Those numbers drive late-game choices.",
+      "note": null
+    },
+    {
+      "type": "play",
+      "prompt": "What did the defense just score?",
+      "play": {
+        "duration": 2.6,
+        "clock": "Q1 9:12",
+        "scene": {
+          "endzone": "bottom",
+          "los": 160,
+          "players": [
+            { "side": "O", "x": 132, "y": 168 }, { "side": "O", "x": 156, "y": 168 }, { "side": "O", "x": 180, "y": 168 },
+            { "side": "O", "x": 204, "y": 168 }, { "side": "X", "x": 160, "y": 150 }, { "side": "X", "x": 200, "y": 150 }
+          ]
+        },
+        "actors": {
+          "qb": { "side": "O", "label": "QB", "path": [[0, 180, 182], [0.8, 180, 194], [1.8, 176, 196]] },
+          "rush": { "side": "X", "trail": true, "path": [[0, 252, 152], [1.4, 198, 190], [1.8, 186, 194]] }
+        },
+        "ball": [[0, 180, 182], [0.8, 180, 194], [1.8, 176, 196]],
+        "events": [
+          { "at": 0.6, "tag": "Dropback" },
+          { "at": 1.8, "ring": ["qb", "rush"] },
+          { "at": 2.0, "tag": "Down in the end zone", "tone": "bad" }
+        ]
+      },
+      "options": ["Nothing. It's just a sack", "A safety: 2 points", "A touchdown: 6 points", "A field goal: 3 points"],
+      "answer": 1,
+      "explain": "The quarterback was tackled inside his own end zone. That's a safety: 2 points for the defense, and they get the ball back."
+    },
+    {
+      "type": "check",
+      "prompt": "How many points is a field goal worth?",
+      "options": ["1", "2", "3", "6"],
+      "answer": 2,
+      "explain": "A field goal is 3. A touchdown is 6, the kick after it is 1, and a safety is 2."
+    }
+  ]
+}

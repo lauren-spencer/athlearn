@@ -1,0 +1,99 @@
+{
+  "id": "holding",
+  "sport": "football",
+  "locale": "en",
+  "unit": "Penalties",
+  "unitOrder": 2,
+  "title": "Holding",
+  "order": 5,
+  "minutes": 4,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it exists",
+      "title": "Blocks, not grabs",
+      "art": "pocket",
+      "body": "Linemen are there to ==protect the passer== and open running lanes. Holding lets a blocker win without being better, so the rule keeps blocking a ==fair fight==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The rule",
+      "title": "Hands inside",
+      "art": "frame",
+      "body": "Blockers can push and steer with their ==hands inside the defender's frame==: the chest and the front of the shoulders. Grabbing and ==restricting== a player is holding.",
+      "note": "Ref signal: one hand grabbing the opposite wrist in front of the chest."
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 1,
+      "title": "The jersey grab",
+      "art": "grab",
+      "body": "The rusher beats the tackle to the outside, so the tackle ==grabs a fistful of jersey== and yanks him back. Flag.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 2,
+      "title": "The takedown",
+      "art": "takedown",
+      "body": "A rusher ==pulled to the ground== while getting past his blocker is the clearest hold there is. Refs almost always call it.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Instance",
+      "num": 3,
+      "title": "Defensive holding",
+      "art": "defhold",
+      "body": "Defenders can hold too. A cornerback who ==grabs a receiver== more than 5 yards past the line, before the ball is thrown, gets flagged.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The cost",
+      "title": "Ten yards back",
+      "art": "back10",
+      "body": "Offensive holding costs ==10 yards== and the down is replayed. Defensive holding is ==5 yards and an automatic first down==.",
+      "note": null
+    },
+    {
+      "type": "play",
+      "prompt": "Why was the flag thrown?",
+      "play": {
+        "duration": 3.0,
+        "clock": "Q3 11:30",
+        "scene": "oline",
+        "actors": {
+          "qb": { "side": "O", "label": "QB", "path": [[0, 180, 156], [1.0, 180, 172], [3.0, 180, 172]] },
+          "rt": { "side": "O", "path": [[0, 228, 138], [0.8, 236, 146], [1.6, 246, 152], [2.2, 240, 154]] },
+          "rush": { "side": "X", "trail": true, "path": [[0, 256, 120], [0.8, 264, 134], [1.6, 256, 150], [2.2, 248, 156]] }
+        },
+        "ball": [[0, 180, 156], [1.0, 180, 172], [3.0, 180, 172]],
+        "events": [
+          { "at": 0.2, "tag": "Snap" },
+          { "at": 1.6, "ring": ["rt", "rush"] },
+          { "at": 1.7, "tag": "Jersey grab", "tone": "bad" },
+          { "at": 2.0, "flag": true }
+        ]
+      },
+      "options": [
+        "The rusher was offside",
+        "The tackle grabbed and pulled the rusher back",
+        "The quarterback held the ball too long",
+        "Clean block, no foul"
+      ],
+      "answer": 1,
+      "explain": "The rusher had the edge, so the tackle grabbed his jersey and hauled him back. That's offensive holding: 10 yards."
+    },
+    {
+      "type": "check",
+      "prompt": "What does offensive holding cost?",
+      "options": ["5 yards", "10 yards", "15 yards", "Loss of down"],
+      "answer": 1,
+      "explain": "Offensive holding is 10 yards and the down is replayed. Defensive holding is 5 yards plus an automatic first down."
+    }
+  ]
+}

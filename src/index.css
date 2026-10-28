@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-backdrop text-ink font-body antialiased;
+    font-variant-numeric: tabular-nums;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-label font-bold uppercase tracking-label text-[12px] text-muted;
+  }
+  .title {
+    @apply font-display font-black uppercase leading-[0.92];
+  }
+  .btn {
+    @apply flex h-12 items-center justify-center gap-2 rounded-btn px-5 font-label text-[16px] font-bold uppercase tracking-label transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flag;
+  }
+  .btn-primary {
+    @apply btn bg-flag text-app hover:bg-[#ffd25c] disabled:bg-line-2 disabled:text-dim;
+  }
+  .btn-secondary {
+    @apply btn border border-line-2 text-ink hover:border-muted disabled:text-dim;
+  }
+  .key {
+    @apply border-b-2 border-flag;
+  }
+  .scroll-hide {
+    scrollbar-width: none;
+  }
+  .scroll-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
