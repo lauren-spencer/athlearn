@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { SPORTS } from '../content'
 import { useProgress } from '../state/progress'
-import { Playbook } from '../components/Playbook'
+import { Demo } from '../components/Demo'
 import { Icons, Segments, Wordmark } from '../components/ui'
 import type { Progress } from '../types'
 
@@ -35,25 +35,32 @@ export default function Welcome() {
 
   if (step === 0) {
     return (
-      <motion.div className="flex h-full flex-col px-5 pb-6 pt-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.5 }}>
+      <motion.div className="scroll-hide flex h-full flex-col overflow-y-auto px-5 pb-6 pt-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.5 }}>
         <Wordmark />
-        <div className="flex flex-1 flex-col justify-center">
-          <Playbook art="hero" />
-          <h1 className="title mt-8 text-[58px]">
-            Learn the game.
-            <br />
-            <span className="text-flag">Not just the score.</span>
-          </h1>
-          <p className="mt-4 text-[17px] text-muted">Short lessons, one rule at a time. Then you make the call on a real play.</p>
+        <h1 className="title mt-5 text-[40px]">
+          Learn the game.
+          <br />
+          <span className="text-flag">Not just the score.</span>
+        </h1>
+        <div className="mt-5">
+          <Demo />
         </div>
-        <button className="btn-primary w-full" onClick={() => setStep(1)} autoFocus>
-          Get started
-        </button>
-        {cloud && !progress.onboarded && (
-          <button className="btn-secondary mt-2 w-full" onClick={() => nav('/signin')}>
-            I have an account
-          </button>
-        )}
+        <div className="mt-auto grid gap-2 pt-6">
+          {cloud && !progress.onboarded ? (
+            <>
+              <button className="btn-primary w-full" onClick={() => nav('/signin')}>
+                Sign up or sign in
+              </button>
+              <button className="btn-secondary w-full" onClick={() => setStep(1)}>
+                Continue as guest
+              </button>
+            </>
+          ) : (
+            <button className="btn-primary w-full" onClick={() => setStep(1)}>
+              Get started
+            </button>
+          )}
+        </div>
       </motion.div>
     )
   }

@@ -4,7 +4,7 @@ import { useProgress } from '../state/progress'
 import { SignInForm } from '../components/Account'
 import { Icons, Wordmark } from '../components/ui'
 
-/** Sign in from the welcome screen, to restore progress on a new device. */
+/** Sign up or sign in from the welcome screen. A magic link does both: new emails get an account. */
 export function SignIn() {
   const { cloud, user } = useProgress()
   const nav = useNavigate()
@@ -17,8 +17,8 @@ export function SignIn() {
       </button>
       <div className="mt-6">
         <Wordmark />
-        <h1 className="title mt-6 text-[48px]">Welcome back</h1>
-        <p className="mt-2 text-[16px] text-muted">We'll email you a link. Tap it and your streak and lessons come with you.</p>
+        <h1 className="title mt-6 text-[48px]">Sign up or sign in</h1>
+        <p className="mt-2 text-[16px] text-muted">Same step either way: we'll email you a link, no password. Tap it and your streak and lessons follow you to any device.</p>
       </div>
       <div className="mt-8">
         <SignInForm autoFocus />

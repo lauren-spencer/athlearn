@@ -30,6 +30,7 @@ export const Icons = {
     </>,
   ),
   play: icon(<path d="M7 5l12 7-12 7z" fill="currentColor" />),
+  pause: icon(<path d="M8 5v14M16 5v14" />),
   replay: icon(
     <>
       <path d="M4 12a8 8 0 108-8H8" />
