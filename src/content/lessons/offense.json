@@ -1,0 +1,95 @@
+{
+  "id": "offense",
+  "sport": "football",
+  "locale": "en",
+  "unit": "Positions",
+  "unitOrder": 2,
+  "title": "Offense",
+  "order": 4,
+  "minutes": 4,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it matters",
+      "title": "Eleven jobs",
+      "art": "offense11",
+      "body": "Each team has ==11 players== on the field. On offense that's five linemen, a quarterback, and ==five skill players== split between backs, receivers and tight ends.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Position",
+      "num": 1,
+      "title": "Quarterback",
+      "art": "qbjob",
+      "body": "The QB takes the snap and runs the show: calls the play in the huddle, then ==throws it or hands it off==. Almost every play goes through him.",
+      "note": "On TV, the QB is the one the camera follows before the snap."
+    },
+    {
+      "type": "card",
+      "kicker": "Position",
+      "num": 2,
+      "title": "Offensive line",
+      "art": "olinejob",
+      "body": "A center, two guards and two tackles. They snap, block and protect. They ==can't catch a forward pass==. The left tackle guards a right-handed QB's ==blind side==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Position",
+      "num": 3,
+      "title": "Running back",
+      "art": "rbjob",
+      "body": "Lines up behind the QB. Takes the ==handoff and finds a gap==, catches short passes, and stays in to ==block blitzers== when the QB throws.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Position",
+      "num": 4,
+      "title": "Receivers",
+      "art": "receivers",
+      "body": "Wide receivers ==split out wide== and run routes to get open. The tight end lines up next to a tackle and does both: ==blocks like a lineman, catches like a receiver==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The rule",
+      "title": "Seven on the line",
+      "art": "seven",
+      "body": "At the snap the offense needs ==at least 7 players on the line==. Only the two players on the ends of that line and the players behind it are ==eligible to catch== a pass.",
+      "note": "Break it and it's an illegal formation: 5 yards."
+    },
+    {
+      "type": "play",
+      "prompt": "Who caught the pass?",
+      "play": {
+        "duration": 2.8,
+        "clock": "Q2 6:40",
+        "scene": "olineFull",
+        "actors": {
+          "qb": { "side": "O", "label": "QB", "path": [[0, 180, 158], [0.9, 180, 172], [2.8, 180, 172]] },
+          "rb": { "side": "O", "label": "RB", "path": [[0, 180, 188], [0.7, 166, 168], [2.8, 166, 166]] },
+          "te": { "side": "O", "label": "TE", "trail": true, "path": [[0, 252, 138], [1.1, 252, 92], [1.8, 222, 74], [2.8, 214, 60]] },
+          "lb": { "side": "X", "path": [[0, 220, 88], [1.2, 236, 100], [2.0, 244, 88], [2.8, 240, 74]] }
+        },
+        "ball": [[0, 180, 158], [0.9, 180, 172], [1.3, 180, 170], [1.9, 222, 74], [2.8, 214, 60]],
+        "events": [
+          { "at": 0.2, "tag": "Snap" },
+          { "at": 1.9, "ring": ["te"] },
+          { "at": 1.9, "tag": "Caught", "tone": "good" }
+        ]
+      },
+      "options": ["Wide receiver", "Tight end", "Running back", "Right tackle"],
+      "answer": 1,
+      "explain": "He started on the line right next to the tackle, then released over the middle. That's the tight end: half blocker, half receiver."
+    },
+    {
+      "type": "check",
+      "prompt": "Which player can't catch a forward pass?",
+      "options": ["Running back", "Tight end", "Left guard", "Wide receiver"],
+      "answer": 2,
+      "explain": "Linemen like guards, tackles and the center are ineligible. Their job is to block."
+    }
+  ]
+}

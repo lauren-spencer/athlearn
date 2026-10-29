@@ -17,6 +17,17 @@ const WRS = [o(40, 136, 'WR'), o(320, 136, 'WR')]
 const BACK7 = [x(140, 88), x(180, 84), x(220, 88), x(40, 106), x(320, 106), x(130, 40), x(240, 40)]
 const formation = (): PlayerSpec[] => [...OL(), QB(), ...WRS, ...DL(), x(104, 120), x(256, 120), ...BACK7]
 
+// Labeled 11-player sides for the positions lessons. Seven offensive players are on the line.
+const OL_LABELED = () => ['T', 'G', 'C', 'G', 'T'].map((l, i) => o(132 + i * 24, 138, l))
+const OFFENSE = (): PlayerSpec[] => [...OL_LABELED(), QB(), o(180, 186, 'RB'), o(40, 138, 'WR'), o(252, 138, 'TE'), o(290, 148, 'WR'), o(322, 148, 'WR')]
+const DEFENSE = (): PlayerSpec[] => [
+  ...['DE', 'DT', 'DT', 'DE'].map((l, i) => x(150 + i * 20, 118, l)),
+  x(140, 88, 'LB'), x(180, 84, 'MLB'), x(220, 88, 'LB'),
+  x(40, 112, 'CB'), x(322, 122, 'CB'),
+  x(120, 34, 'S'), x(240, 34, 'S'),
+]
+const dimAll = (ps: PlayerSpec[]) => ps.map((p) => ({ ...p, dim: true }))
+
 export const ART: Record<string, Scene> = {
   /* ---- play backdrops (drawn dimmed behind the moving actors) ---- */
   oline: { los: LOS, players: [...OL().slice(0, 4), ...DL().slice(0, 3)] },
@@ -416,6 +427,391 @@ export const ART: Record<string, Scene> = {
     tags: [
       { x: 270, y: 80, text: '+15 yards', tone: 'good' },
       { x: 90, y: 14, text: 'Automatic first down' },
+    ],
+  },
+
+  /* ---- positions: offense ---- */
+  offense11: {
+    los: LOS,
+    players: OFFENSE(),
+    tags: [
+      { x: 180, y: 30, text: '11 on offense' },
+      { x: 70, y: 196, text: '7 on the line', tone: 'ink' },
+    ],
+  },
+  qbjob: {
+    los: LOS,
+    players: [...dimAll(OFFENSE()).filter((p) => p.label !== 'QB'), QB()],
+    arrows: [
+      { from: [180, 150], to: [298, 64], via: [240, 70] },
+      { from: [174, 164], to: [176, 182], tone: 'ink', dashed: true },
+    ],
+    rings: [{ x: 180, y: 158, r: 16 }],
+    tags: [
+      { x: 290, y: 46, text: 'Throw it' },
+      { x: 90, y: 182, text: 'Or hand it off', tone: 'ink' },
+    ],
+  },
+  olinejob: {
+    los: LOS,
+    players: [...OL_LABELED(), QB(), ...DL()],
+    zones: [{ x: 118, y: 128, w: 124, h: 22, tone: 'ink' }],
+    tags: [
+      { x: 180, y: 186, text: "Can't catch a pass", tone: 'bad' },
+      { x: 60, y: 140, text: 'Left tackle', tone: 'ink' },
+    ],
+    arrows: [{ from: [92, 140], to: [124, 140], tone: 'ink' }],
+  },
+  rbjob: {
+    los: LOS,
+    players: [...dimAll(OFFENSE()).filter((p) => p.label !== 'RB'), o(180, 186, 'RB')],
+    arrows: [{ from: [180, 178], to: [196, 60], via: [196, 140] }],
+    rings: [{ x: 180, y: 186, r: 14 }],
+    tags: [
+      { x: 270, y: 70, text: 'Through the gap' },
+      { x: 90, y: 196, text: 'Runs, catches, blocks', tone: 'ink' },
+    ],
+  },
+  receivers: {
+    los: LOS,
+    players: [...dimAll(OL_LABELED()), QB(), o(40, 138, 'WR'), o(252, 138, 'TE'), o(322, 148, 'WR')],
+    arrows: [
+      { from: [40, 130], to: [86, 40], via: [40, 60] },
+      { from: [252, 130], to: [210, 74], via: [252, 84] },
+      { from: [322, 140], to: [300, 30] },
+    ],
+    tags: [
+      { x: 70, y: 196, text: 'Wide receivers: split out', tone: 'ink' },
+      { x: 270, y: 196, text: 'Tight end: blocks + catches' },
+    ],
+  },
+  seven: {
+    los: LOS,
+    players: OFFENSE(),
+    zones: [{ x: 26, y: 128, w: 240, h: 22, tone: 'flag' }],
+    rings: [
+      { x: 40, y: 138, r: 13 },
+      { x: 252, y: 138, r: 13 },
+    ],
+    tags: [
+      { x: 146, y: 112, text: '7 on the line' },
+      { x: 260, y: 196, text: 'Ends + backs can catch', tone: 'good' },
+    ],
+  },
+
+  /* ---- positions: defense ---- */
+  defense11: {
+    los: LOS,
+    players: [...dimAll(OFFENSE()), ...DEFENSE()],
+    tags: [
+      { x: 300, y: 70, text: 'Linebackers', tone: 'ink' },
+      { x: 300, y: 16, text: 'Secondary', tone: 'ink' },
+      { x: 92, y: 96, text: 'Line' },
+    ],
+  },
+  dline: {
+    los: LOS,
+    players: [...dimAll(OFFENSE()), ...DEFENSE().slice(0, 4)],
+    arrows: [
+      { from: [150, 116], to: [168, 154], tone: 'bad', dashed: true },
+      { from: [210, 116], to: [192, 154], tone: 'bad', dashed: true },
+    ],
+    tags: [
+      { x: 290, y: 100, text: 'Rush the passer', tone: 'bad' },
+      { x: 70, y: 90, text: 'Plug the run' },
+    ],
+  },
+  linebackers: {
+    los: LOS,
+    players: [...dimAll(OFFENSE()), ...dimAll(DEFENSE().slice(0, 4)), x(140, 88, 'LB'), x(180, 84, 'MLB'), x(220, 88, 'LB')],
+    rings: [{ x: 180, y: 84, r: 14 }],
+    arrows: [
+      { from: [140, 82], to: [80, 60], tone: 'ink', dashed: true },
+      { from: [220, 82], to: [200, 120], tone: 'bad', dashed: true },
+    ],
+    tags: [
+      { x: 180, y: 56, text: 'Calls the defense' },
+      { x: 290, y: 110, text: 'Tackle, cover, blitz', tone: 'ink' },
+    ],
+  },
+  corners: {
+    los: LOS,
+    players: [o(40, 138, 'WR'), o(322, 148, 'WR'), x(40, 112, 'CB'), x(322, 122, 'CB')],
+    arrows: [
+      { from: [40, 130], to: [70, 40], via: [40, 60] },
+      { from: [40, 104], to: [62, 36], via: [36, 60], tone: 'bad', dashed: true },
+      { from: [322, 140], to: [300, 50] },
+      { from: [322, 114], to: [306, 46], tone: 'bad', dashed: true },
+    ],
+    tags: [{ x: 180, y: 70, text: 'Shadow the receivers' }],
+  },
+  safeties: {
+    los: LOS,
+    players: [...dimAll(OFFENSE()), ...dimAll(DEFENSE().slice(0, 9)), x(120, 34, 'S'), x(240, 34, 'S')],
+    zones: [{ x: 20, y: 4, w: 320, h: 56, tone: 'flag' }],
+    tags: [{ x: 180, y: 14, text: 'Last line of defense' }],
+  },
+  blitz: {
+    los: LOS,
+    players: [...dimAll(OFFENSE()).filter((p) => p.label !== 'QB'), QB(), ...dimAll(DEFENSE().filter((p) => p.label !== 'MLB')), x(180, 84, 'MLB')],
+    arrows: [{ from: [180, 92], to: [186, 150], via: [192, 120], tone: 'bad' }],
+    tags: [
+      { x: 290, y: 100, text: 'Extra rusher', tone: 'bad' },
+      { x: 80, y: 60, text: 'Fewer in coverage', tone: 'ink' },
+    ],
+  },
+
+  /* ---- positions: special teams ---- */
+  specialteams: {
+    view: 'full',
+    arrows: [
+      { from: [135, 60], to: [320, 60], via: [230, 20] },
+      { from: [150, 140], to: [290, 140], via: [220, 105], tone: 'ink' },
+    ],
+    tags: [
+      { x: 230, y: 44, text: 'Kickoff' },
+      { x: 220, y: 156, text: 'Punt', tone: 'ink' },
+      { x: 180, y: 198, text: 'Every kick = special teams' },
+    ],
+  },
+  kicker: {
+    endzone: 'top',
+    los: 96,
+    players: [...[148, 164, 180, 196, 212].map((px) => o(px, 104)), o(180, 152, 'H'), { side: 'O', x: 166, y: 168, label: 'K', filled: true }],
+    arrows: [{ from: [172, 160], to: [180, 6], tone: 'flag' }],
+    tags: [
+      { x: 290, y: 60, text: 'Field goal: 3', tone: 'good' },
+      { x: 280, y: 160, text: 'Holder + kicker', tone: 'ink' },
+    ],
+  },
+  punter: {
+    view: 'full',
+    players: [o(60, 105, 'P'), o(276, 105, 'PR')],
+    arrows: [{ from: [64, 100], to: [272, 100], via: [170, 30] }],
+    tags: [
+      { x: 170, y: 198, text: '4th down: kick it away', tone: 'ink' },
+      { x: 170, y: 14, text: 'Flip the field' },
+    ],
+  },
+  snapper: {
+    los: 70,
+    players: [...[148, 164, 196, 212].map((px) => o(px, 78)), o(180, 80, 'LS'), { side: 'O', x: 180, y: 182, label: 'P', filled: true }],
+    arrows: [{ from: [180, 88], to: [180, 170], tone: 'flag', dashed: true }],
+    tags: [
+      { x: 270, y: 130, text: '15 yards back' },
+      { x: 90, y: 130, text: 'Long snapper', tone: 'ink' },
+    ],
+  },
+  faircatch: {
+    players: [o(180, 70, 'PR'), x(150, 150), x(212, 160), x(180, 176)],
+    arrows: [
+      { from: [150, 142], to: [168, 96], tone: 'bad', dashed: true },
+      { from: [212, 152], to: [194, 98], tone: 'bad', dashed: true },
+    ],
+    ball: [182, 52],
+    rings: [{ x: 180, y: 66, r: 18 }],
+    tags: [
+      { x: 284, y: 40, text: 'Wave = fair catch' },
+      { x: 284, y: 190, text: "Can't hit him", tone: 'bad' },
+    ],
+  },
+  returner: {
+    view: 'full',
+    players: [o(318, 105, 'KR'), x(220, 60), x(230, 100), x(220, 150)],
+    arrows: [{ from: [314, 105], to: [150, 140], via: [260, 170], tone: 'good' }],
+    tags: [
+      { x: 150, y: 14, text: 'Catch it, run it back' },
+      { x: 120, y: 198, text: 'Fastest player on the field', tone: 'ink' },
+    ],
+  },
+
+  /* ---- legends ---- */
+  legendsIntro: {
+    los: LOS,
+    players: [...dimAll(OFFENSE()), ...dimAll(DEFENSE())],
+    tags: [
+      { x: 180, y: 106, text: 'Every position has its icons' },
+    ],
+  },
+  goat: {
+    los: LOS,
+    players: [...dimAll(OL()), { side: 'O', x: 180, y: 160, label: 'QB', filled: true, size: 12 }],
+    rings: [{ x: 180, y: 160, r: 22 }],
+    tags: [
+      { x: 180, y: 60, text: '7 championships' },
+      { x: 180, y: 200, text: '23 seasons', tone: 'ink' },
+    ],
+  },
+  rice: {
+    endzone: 'top',
+    los: LOS,
+    players: [...dimAll(OL()), QB(), o(300, 50, 'WR')],
+    arrows: [{ from: [300, 130], to: [300, 58], via: [320, 90] }],
+    ball: [304, 44],
+    tags: [
+      { x: 110, y: 66, text: '22,895 yards' },
+      { x: 110, y: 90, text: '197 TD catches', tone: 'ink' },
+    ],
+  },
+  ltrush: {
+    los: LOS,
+    players: [...OL_LABELED(), QB(), x(98, 120, 'LB')],
+    arrows: [{ from: [98, 128], to: [168, 170], via: [100, 176], tone: 'bad' }],
+    rings: [{ x: 132, y: 138, r: 13 }],
+    tags: [
+      { x: 260, y: 186, text: "QB's blind side", tone: 'bad' },
+      { x: 110, y: 96, text: 'Left tackle got paid' },
+    ],
+  },
+  sweetness: {
+    los: LOS,
+    players: [...dimAll(OL()), QB(), o(210, 74, 'RB'), x(190, 70), x(236, 82)],
+    arrows: [{ from: [180, 186], to: [208, 84], via: [216, 150] }],
+    tags: [
+      { x: 90, y: 50, text: '"Sweetness"' },
+      { x: 270, y: 186, text: 'Award carries his name', tone: 'ink' },
+    ],
+  },
+  nicknames: {
+    players: [o(70, 70, 'CB'), o(290, 70, 'RB'), o(70, 160, 'WR'), o(290, 160, 'RB')],
+    tags: [
+      { x: 70, y: 44, text: 'Prime Time' },
+      { x: 290, y: 44, text: 'Beast Mode' },
+      { x: 70, y: 134, text: 'Megatron' },
+      { x: 290, y: 134, text: 'Sweetness' },
+    ],
+  },
+
+  /* ---- famous plays ---- */
+  immaculate: {
+    los: 160,
+    players: [o(180, 186, 'QB'), o(196, 70, 'RB'), x(184, 46), o(170, 50)],
+    arrows: [
+      { from: [180, 178], to: [176, 52], tone: 'ink', dashed: true },
+      { from: [176, 52], to: [196, 82], tone: 'flag' },
+    ],
+    rings: [{ x: 176, y: 50, r: 16 }],
+    tags: [
+      { x: 290, y: 90, text: 'Off the shoetops' },
+      { x: 80, y: 24, text: 'Deflection', tone: 'bad' },
+      { x: 90, y: 196, text: 'Dec 23, 1972', tone: 'ink' },
+    ],
+  },
+  thecatch: {
+    endzone: 'top',
+    los: 150,
+    players: [{ side: 'O', x: 316, y: 132, label: 'QB', filled: true }, o(230, 18, 'WR'), x(246, 30), x(298, 112), x(330, 140)],
+    arrows: [{ from: [312, 126], to: [232, 24], via: [270, 50] }],
+    ball: [232, 12],
+    tags: [
+      { x: 110, y: 70, text: 'Leaping grab' },
+      { x: 100, y: 196, text: 'Jan 10, 1982', tone: 'ink' },
+    ],
+  },
+  hailmary: {
+    view: 'full',
+    players: [{ side: 'O', x: 150, y: 105, label: 'QB', filled: true }, o(316, 96, 'WR'), x(322, 80), x(330, 112), x(310, 124)],
+    arrows: [{ from: [156, 100], to: [312, 92], via: [240, 20] }],
+    tags: [
+      { x: 230, y: 14, text: 'Throw it up and pray' },
+      { x: 120, y: 198, text: '1975 playoffs', tone: 'ink' },
+    ],
+  },
+  helmet: {
+    los: 140,
+    players: [{ side: 'O', x: 176, y: 176, label: 'QB', filled: true }, x(160, 166), x(196, 170), o(200, 54, 'WR'), x(212, 46)],
+    arrows: [
+      { from: [176, 168], to: [200, 60], via: [176, 110] },
+    ],
+    rings: [
+      { x: 176, y: 172, r: 22 },
+      { x: 204, y: 50, r: 16 },
+    ],
+    tags: [
+      { x: 90, y: 30, text: 'Pinned to his helmet' },
+      { x: 290, y: 190, text: 'Escape', tone: 'ink' },
+    ],
+  },
+  guarantee: {
+    tags: [
+      { x: 180, y: 70, text: '"I guarantee it"' },
+      { x: 180, y: 110, text: 'Big underdogs', tone: 'ink' },
+      { x: 180, y: 150, text: 'They won', tone: 'good' },
+    ],
+  },
+  perfect: {
+    tags: [
+      { x: 180, y: 80, text: '17–0' },
+      { x: 180, y: 120, text: 'Still the only perfect season', tone: 'ink' },
+    ],
+  },
+
+  playsIntro: {
+    tags: [
+      { x: 110, y: 50, text: 'The Catch' },
+      { x: 250, y: 80, text: 'The Hail Mary', tone: 'ink' },
+      { x: 120, y: 120, text: 'The Helmet Catch', tone: 'ink' },
+      { x: 230, y: 160, text: 'The Immaculate Reception' },
+    ],
+  },
+  biggame: {
+    view: 'full',
+    tags: [
+      { x: 180, y: 60, text: 'Most-watched broadcast' },
+      { x: 110, y: 110, text: 'Halftime show', tone: 'ink' },
+      { x: 250, y: 140, text: 'The commercials', tone: 'ink' },
+    ],
+  },
+
+  /* ---- teams ---- */
+  cities: {
+    view: 'full',
+    tags: [
+      { x: 90, y: 60, text: 'Pittsburgh' },
+      { x: 270, y: 60, text: 'Green Bay' },
+      { x: 120, y: 105, text: 'San Francisco', tone: 'ink' },
+      { x: 260, y: 140, text: 'Kansas City' },
+      { x: 90, y: 150, text: 'New England', tone: 'ink' },
+    ],
+  },
+  sixrings: {
+    tags: [
+      { x: 100, y: 70, text: 'Pittsburgh' },
+      { x: 260, y: 70, text: 'New England' },
+      { x: 100, y: 110, text: '6 titles', tone: 'ink' },
+      { x: 260, y: 110, text: '6 titles', tone: 'ink' },
+      { x: 180, y: 170, text: 'The most of any team', tone: 'good' },
+    ],
+  },
+  lambeau: {
+    endzone: 'top',
+    players: [o(180, 22, 'RB'), x(140, 70), x(230, 80)],
+    arrows: [
+      { from: [180, 150], to: [180, 32], via: [196, 80] },
+      { from: [188, 16], to: [214, 2], tone: 'flag', dashed: true },
+    ],
+    tags: [
+      { x: 290, y: 50, text: 'Leap into the stands' },
+      { x: 90, y: 190, text: 'Fan-owned team', tone: 'ink' },
+    ],
+  },
+  westcoast: {
+    los: LOS,
+    players: [...dimAll(OL()), QB(), o(254, 78, 'WR'), x(266, 70)],
+    arrows: [{ from: [254, 130], to: [254, 86], tone: 'ink' }, { from: [180, 150], to: [250, 84], tone: 'flag', dashed: true }],
+    tags: [
+      { x: 90, y: 60, text: 'Short, fast throws' },
+      { x: 270, y: 190, text: '5 titles in 14 seasons', tone: 'ink' },
+    ],
+  },
+  kc: {
+    los: LOS,
+    players: [...dimAll(OL()), QB(), o(196, 76, 'TE'), x(214, 70)],
+    arrows: [{ from: [252, 130], to: [200, 84], via: [252, 96] }, { from: [178, 150], to: [194, 84], tone: 'flag', dashed: true }],
+    rings: [{ x: 180, y: 158, r: 16 }, { x: 196, y: 76, r: 14 }],
+    tags: [
+      { x: 90, y: 50, text: 'QB to tight end' },
+      { x: 280, y: 190, text: '3 titles in 5 seasons', tone: 'ink' },
     ],
   },
 }

@@ -1,0 +1,94 @@
+{
+  "id": "teams",
+  "sport": "football",
+  "locale": "en",
+  "unit": "Legends & culture",
+  "unitOrder": 4,
+  "title": "Teams and their stars",
+  "order": 12,
+  "minutes": 4,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it matters",
+      "title": "Every city has its icons",
+      "art": "cities",
+      "body": "Each of the 32 teams has its ==franchise legends== and today's stars. Fans pick a team and inherit its history, ==heroes and grudges== included.",
+      "note": "Every team's icons are in the Rulebook under Teams."
+    },
+    {
+      "type": "card",
+      "kicker": "Dynasty",
+      "num": 1,
+      "title": "Six rings each",
+      "art": "sixrings",
+      "body": "Pittsburgh and New England have the ==most titles: 6 each==. Pittsburgh's \"Steel Curtain\" won four in the '70s. New England's six all came with ==Tom Brady and coach Bill Belichick==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Dynasty",
+      "num": 2,
+      "title": "San Francisco",
+      "art": "westcoast",
+      "body": "Joe Montana, Jerry Rice and Steve Young won ==five titles in 14 seasons== with short, quick passes. Today's QB Brock Purdy was the ==very last pick== of his draft.",
+      "note": "The last pick each year is nicknamed Mr. Irrelevant."
+    },
+    {
+      "type": "card",
+      "kicker": "Tradition",
+      "num": 3,
+      "title": "Green Bay",
+      "art": "lambeau",
+      "body": "The smallest city in the league, and the only team ==owned by its fans==. Players celebrate touchdowns by ==leaping into the stands==, and the championship trophy is named for its old coach, Vince Lombardi.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Today",
+      "num": 4,
+      "title": "Kansas City",
+      "art": "kc",
+      "body": "QB Patrick Mahomes and tight end Travis Kelce won ==3 titles in 5 seasons==. Kelce's relationship with ==Taylor Swift== brought a wave of new fans to the sport in 2023.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Fan tip",
+      "title": "The big game",
+      "art": "biggame",
+      "body": "The championship game is usually the most-watched broadcast in the US each year. Plenty of viewers tune in for the ==halftime show== and the ==commercials== as much as the football.",
+      "note": null
+    },
+    {
+      "type": "play",
+      "prompt": "This touchdown celebration started with which team?",
+      "play": {
+        "duration": 2.8,
+        "clock": "Q2 0:41",
+        "scene": { "endzone": "top" },
+        "actors": {
+          "rb": { "side": "O", "label": "RB", "trail": true, "path": [[0, 180, 160], [1.2, 196, 80], [1.9, 186, 28], [2.4, 180, 6], [2.8, 180, 4]] },
+          "s1": { "side": "X", "path": [[0, 140, 70], [1.4, 172, 64], [2.8, 176, 40]] },
+          "s2": { "side": "X", "path": [[0, 240, 60], [1.4, 214, 60], [2.8, 196, 34]] }
+        },
+        "ball": [[0, 180, 160], [1.2, 196, 80], [1.9, 186, 28], [2.4, 180, 6], [2.8, 180, 4]],
+        "events": [
+          { "at": 1.8, "tag": "Touchdown", "tone": "good" },
+          { "at": 2.4, "ring": ["rb"] },
+          { "at": 2.4, "tag": "Leap into the stands" }
+        ]
+      },
+      "options": ["Seattle", "Green Bay", "Dallas", "Pittsburgh"],
+      "answer": 1,
+      "explain": "It's the Lambeau Leap, named for Green Bay's stadium. Players jump into the front row and fans grab them."
+    },
+    {
+      "type": "check",
+      "prompt": "Which two teams have won the most championships?",
+      "options": ["Dallas and San Francisco", "Green Bay and Chicago", "Pittsburgh and New England", "Kansas City and Denver"],
+      "answer": 2,
+      "explain": "Pittsburgh and New England have six each. San Francisco and Dallas are next with five."
+    }
+  ]
+}

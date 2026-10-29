@@ -1,0 +1,99 @@
+{
+  "id": "famous-plays",
+  "sport": "football",
+  "locale": "en",
+  "unit": "Legends & culture",
+  "unitOrder": 4,
+  "title": "Famous plays",
+  "order": 11,
+  "minutes": 4,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it matters",
+      "title": "Plays with names",
+      "art": "playsIntro",
+      "body": "A few plays are so famous they ==have their own names==. Fans still bring them up decades later, usually to annoy the other team's fans.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Famous play",
+      "num": 1,
+      "title": "The Immaculate Reception",
+      "art": "immaculate",
+      "body": "1972, Pittsburgh down late in a playoff game. A pass ==deflects off a collision== and Franco Harris ==scoops it just before it hits the ground==, then runs it in to win.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Famous play",
+      "num": 2,
+      "title": "The Catch",
+      "art": "thecatch",
+      "body": "1982, San Francisco. Joe Montana rolls right under pressure and lofts it high. Dwight Clark ==leaps at the back of the end zone== to win the game and start a dynasty.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Famous play",
+      "num": 3,
+      "title": "The Hail Mary",
+      "art": "hailmary",
+      "body": "In a 1975 playoff game, Dallas QB Roger Staubach heaved a ==long, desperate pass== for the winning score, then said he'd thrown it and said a Hail Mary. Every ==last-second heave== has had the name since.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Famous play",
+      "num": 4,
+      "title": "The Helmet Catch",
+      "art": "helmet",
+      "body": "In the 2008 title game, Eli Manning escaped a sack and threw deep. David Tyree ==pinned the ball to his helmet== with one hand, and New York ==ended New England's perfect season==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Fan tip",
+      "title": "The perfect season",
+      "art": "perfect",
+      "body": "The 1972 Miami team went ==17–0==, still the ==only perfect season== in pro football. Some of its players famously toast each year when the last unbeaten team loses.",
+      "note": null
+    },
+    {
+      "type": "play",
+      "prompt": "Four seconds left, 50 yards to go. What's this play called?",
+      "play": {
+        "duration": 3.4,
+        "clock": "Q4 0:04",
+        "scene": { "view": "full", "players": [{ "side": "X", "x": 324, "y": 76 }, { "side": "X", "x": 332, "y": 116 }] },
+        "actors": {
+          "qb": { "side": "O", "label": "QB", "path": [[0, 180, 105], [1.0, 160, 105], [3.4, 160, 105]] },
+          "wr": { "side": "O", "label": "WR", "trail": true, "path": [[0, 182, 60], [2.6, 312, 92], [3.1, 320, 96], [3.4, 320, 96]] },
+          "cb": { "side": "X", "path": [[0, 220, 64], [3.1, 316, 104], [3.4, 316, 104]] }
+        },
+        "ball": [[0, 180, 105], [1.0, 160, 105], [1.2, 160, 102], [2.1, 240, 22], [3.1, 320, 94], [3.4, 320, 96]],
+        "events": [
+          { "at": 1.2, "tag": "The heave" },
+          { "at": 3.1, "ring": ["wr"] },
+          { "at": 3.1, "tag": "Touchdown", "tone": "good" }
+        ]
+      },
+      "options": ["The Immaculate Reception", "A Hail Mary", "The Catch", "A fair catch"],
+      "answer": 1,
+      "explain": "A long, high, last-second throw into a crowded end zone is a Hail Mary, named after Roger Staubach's 1975 prayer."
+    },
+    {
+      "type": "check",
+      "prompt": "What made the Immaculate Reception famous?",
+      "options": [
+        "A receiver caught it with one hand on his helmet",
+        "A deflected pass was caught just before it hit the ground",
+        "It was the longest field goal ever kicked",
+        "The quarterback guaranteed the win beforehand"
+      ],
+      "answer": 1,
+      "explain": "The pass bounced off a collision and Franco Harris grabbed it near his shoetops, then ran for the winning touchdown."
+    }
+  ]
+}

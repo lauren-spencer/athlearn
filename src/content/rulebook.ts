@@ -1,6 +1,6 @@
 export interface RuleEntry {
   term: string
-  category: 'Basics' | 'Scoring' | 'Penalties' | 'Timing'
+  category: 'Basics' | 'Scoring' | 'Penalties' | 'Timing' | 'Positions' | 'Teams'
   yards?: string
   /** One plain-language line, shown first */
   plain: string
@@ -27,6 +27,51 @@ export const RULEBOOK: RuleEntry[] = [
   { term: 'Delay of game', category: 'Timing', yards: '5 yds', plain: 'The offense was too slow to snap the ball.', detail: 'A play clock counts down between plays; let it hit zero and it costs 5 yards.' },
   { term: 'Two-minute warning', category: 'Timing', plain: 'An automatic timeout with two minutes left in each half.', detail: 'Used in pro football; the clock stops, and teams often change pace after it.' },
   { term: 'Timeout', category: 'Timing', plain: 'A team asks to stop the clock.', detail: 'Each team gets three per half.' },
+  { term: 'Quarterback', category: 'Positions', yards: 'QB', plain: 'Takes the snap and runs the offense.', detail: 'Calls the play in the huddle, then throws, hands off or runs.', lesson: 'offense' },
+  { term: 'Running back', category: 'Positions', yards: 'RB', plain: 'Lines up behind the QB and carries the ball.', detail: 'Also catches short passes and blocks blitzing defenders.', lesson: 'offense' },
+  { term: 'Wide receiver', category: 'Positions', yards: 'WR', plain: 'Splits out wide and runs routes to catch passes.', detail: 'The fastest players on offense, usually two or three on the field.', lesson: 'offense' },
+  { term: 'Tight end', category: 'Positions', yards: 'TE', plain: 'Lines up next to a tackle; blocks and catches.', detail: 'Half lineman, half receiver. Eligible to catch because he plays on the end of the line.', lesson: 'offense' },
+  { term: 'Offensive line', category: 'Positions', yards: 'OL', plain: 'Center, two guards, two tackles. They block.', detail: "Linemen can't catch forward passes. The left tackle protects a right-handed QB's blind side.", lesson: 'offense' },
+  { term: 'Defensive line', category: 'Positions', yards: 'DL', plain: 'Tackles and ends who rush the passer and stop the run.', detail: 'Tackling the QB behind the line of scrimmage is a sack.', lesson: 'defense' },
+  { term: 'Linebacker', category: 'Positions', yards: 'LB', plain: 'Second-level defenders who tackle, cover and blitz.', detail: 'The middle linebacker usually calls the defensive play.', lesson: 'defense' },
+  { term: 'Cornerback', category: 'Positions', yards: 'CB', plain: 'Covers the wide receivers.', detail: 'Lines up across from a receiver and tries to break up or intercept passes.', lesson: 'defense' },
+  { term: 'Safety', category: 'Positions', yards: 'S', plain: 'The deepest defender; the last line of defense.', detail: 'Not to be confused with the 2-point safety score.', lesson: 'defense' },
+  { term: 'Kicker', category: 'Positions', yards: 'K', plain: 'Kicks off and kicks field goals and extra points.', detail: 'A holder places the ball for field goals; that is often the punter.', lesson: 'special-teams' },
+  { term: 'Punter', category: 'Positions', yards: 'P', plain: 'Kicks the ball away on 4th down.', detail: 'Pins the other team deep so they have farther to go.', lesson: 'special-teams' },
+  { term: 'Long snapper', category: 'Positions', yards: 'LS', plain: 'Snaps the ball back on punts and kicks.', detail: 'Fires it about 15 yards on punts, about 7 on field goals.', lesson: 'special-teams' },
+  { term: 'Fair catch', category: 'Positions', plain: 'A returner waves an arm overhead to catch a kick untouched.', detail: "He can't be hit, and he can't run after catching it. The ball is spotted where he caught it.", lesson: 'special-teams' },
+  { term: 'Arizona', category: 'Teams', plain: 'Icons: Larry Fitzgerald.', detail: 'Fitzgerald spent all 17 seasons there and ranks second all-time in receiving yards.' },
+  { term: 'Atlanta', category: 'Teams', plain: 'Icons: Michael Vick, Matt Ryan, Julio Jones.', detail: 'Vick redefined the running quarterback; Ryan was MVP in 2016.' },
+  { term: 'Baltimore', category: 'Teams', plain: 'Icons: Ray Lewis, Ed Reed, Lamar Jackson.', detail: 'Known for ferocious defenses. Jackson is a two-time MVP and one of the best running QBs ever.' },
+  { term: 'Buffalo', category: 'Teams', plain: 'Icons: Jim Kelly, Bruce Smith, Josh Allen.', detail: 'Reached four straight title games in the early \'90s. Smith has the most sacks in history.' },
+  { term: 'Carolina', category: 'Teams', plain: 'Icons: Cam Newton, Luke Kuechly, Steve Smith.', detail: 'Newton won MVP in 2015 and led them to the title game.' },
+  { term: 'Chicago', category: 'Teams', plain: 'Icons: Walter Payton, Dick Butkus, the 1985 defense.', detail: 'One of the oldest franchises. The \'85 team even recorded a rap single before winning the title.' },
+  { term: 'Cincinnati', category: 'Teams', plain: "Icons: Anthony Muñoz, Joe Burrow, Ja'Marr Chase.", detail: 'Burrow and Chase were college teammates at LSU before reuniting in the pros.' },
+  { term: 'Cleveland', category: 'Teams', plain: 'Icons: Jim Brown, Myles Garrett.', detail: 'Brown led the league in rushing 8 times in 9 seasons, then retired at his peak to act in movies.' },
+  { term: 'Dallas', category: 'Teams', plain: 'Icons: Roger Staubach, Troy Aikman, Emmitt Smith.', detail: 'Nicknamed "America\'s Team." Smith is the all-time leading rusher.' },
+  { term: 'Denver', category: 'Teams', plain: 'Icons: John Elway, Terrell Davis.', detail: 'Elway won back-to-back titles at the end of his career; Peyton Manning won his last game there.' },
+  { term: 'Detroit', category: 'Teams', plain: 'Icons: Barry Sanders, Calvin Johnson.', detail: 'Sanders retired suddenly in his prime, closing in on the rushing record. Johnson was nicknamed Megatron.' },
+  { term: 'Green Bay', category: 'Teams', plain: 'Icons: Vince Lombardi, Bart Starr, Brett Favre, Aaron Rodgers.', detail: 'Owned by its fans. The championship trophy is named for Lombardi, and players do the Lambeau Leap.', lesson: 'teams' },
+  { term: 'Houston', category: 'Teams', plain: 'Icons: J.J. Watt, Andre Johnson.', detail: 'Watt won Defensive Player of the Year three times.' },
+  { term: 'Indianapolis', category: 'Teams', plain: 'Icons: Peyton Manning, Johnny Unitas.', detail: 'Unitas starred when the team was in Baltimore. Manning won a record five MVPs, four of them here.' },
+  { term: 'Jacksonville', category: 'Teams', plain: 'Icons: Tony Boselli, Fred Taylor, Trevor Lawrence.', detail: 'Joined the league in 1995 and reached the conference title game in only its second season.' },
+  { term: 'Kansas City', category: 'Teams', plain: 'Icons: Len Dawson, Derrick Thomas, Patrick Mahomes, Travis Kelce.', detail: 'Mahomes and Kelce won three titles in five seasons. Its stadium is famously loud.', lesson: 'teams' },
+  { term: 'Las Vegas', category: 'Teams', plain: 'Icons: Marcus Allen, Tim Brown, Bo Jackson.', detail: 'Moved from Oakland in 2020. Owner Al Davis\'s motto: "Just win, baby."' },
+  { term: 'Los Angeles', category: 'Teams', yards: 'horns', plain: 'Icons: Deacon Jones, Eric Dickerson, Kurt Warner, Aaron Donald.', detail: 'Deacon Jones coined the word "sack." Dickerson still holds the single-season rushing record.' },
+  { term: 'Los Angeles', category: 'Teams', yards: 'bolts', plain: 'Icons: Dan Fouts, Junior Seau, LaDainian Tomlinson.', detail: 'Spent decades in San Diego. Tomlinson set the record with 31 touchdowns in a season.' },
+  { term: 'Miami', category: 'Teams', plain: 'Icons: Don Shula, Dan Marino.', detail: 'The 1972 team went 17–0, the only perfect season. Shula won more games than any coach.', lesson: 'famous-plays' },
+  { term: 'Minnesota', category: 'Teams', plain: 'Icons: the Purple People Eaters, Randy Moss, Adrian Peterson, Justin Jefferson.', detail: 'Moss caught a rookie-record 17 touchdowns in 1998. The \'70s defensive line had the best nickname in the sport.' },
+  { term: 'New England', category: 'Teams', plain: 'Icons: Tom Brady, Bill Belichick.', detail: 'Six titles, all with Brady and Belichick, tied for the most of any team.', lesson: 'teams' },
+  { term: 'New Orleans', category: 'Teams', plain: 'Icons: Drew Brees.', detail: 'Won its first title in the 2009 season, four years after Hurricane Katrina. Fans chant "Who dat?"' },
+  { term: 'New York', category: 'Teams', yards: 'blue', plain: 'Icons: Lawrence Taylor, Michael Strahan, Eli Manning.', detail: 'Eli Manning beat Brady\'s New England twice in title games, including the Helmet Catch.', lesson: 'famous-plays' },
+  { term: 'New York', category: 'Teams', yards: 'green', plain: 'Icons: Joe Namath.', detail: '"Broadway Joe" guaranteed an upset in the 1969 title game and delivered.' },
+  { term: 'Philadelphia', category: 'Teams', plain: 'Icons: Reggie White, Brian Dawkins, Jalen Hurts.', detail: 'Famous for passionate fans and the "tush push" quarterback sneak.' },
+  { term: 'Pittsburgh', category: 'Teams', plain: 'Icons: Terry Bradshaw, Franco Harris, "Mean" Joe Greene, T.J. Watt.', detail: 'Six titles, tied for the most. The \'70s "Steel Curtain" defense won four.', lesson: 'teams' },
+  { term: 'San Francisco', category: 'Teams', plain: 'Icons: Joe Montana, Jerry Rice, Steve Young, Ronnie Lott.', detail: 'Five titles in 14 seasons. Brock Purdy went from last pick in the draft to starter.', lesson: 'teams' },
+  { term: 'Seattle', category: 'Teams', plain: 'Icons: Steve Largent, the Legion of Boom, Marshawn Lynch.', detail: 'Fans are "the 12th man," loud enough to register on earthquake sensors during a Lynch run.' },
+  { term: 'Tampa Bay', category: 'Teams', plain: 'Icons: Derrick Brooks, Warren Sapp, Tom Brady.', detail: 'Brady won his seventh title here in 2021, the first team to win the big game in its home stadium.' },
+  { term: 'Tennessee', category: 'Teams', plain: 'Icons: Earl Campbell, Steve McNair, Derrick Henry.', detail: 'Started as the Houston team. Henry ran for over 2,000 yards in 2020.' },
+  { term: 'Washington', category: 'Teams', plain: 'Icons: Joe Gibbs, John Riggins, Sean Taylor.', detail: 'Coach Gibbs won three titles with three different starting quarterbacks.' },
 ]
 
-export const CATEGORIES = ['All', 'Basics', 'Scoring', 'Penalties', 'Timing'] as const
+export const CATEGORIES = ['All', 'Basics', 'Scoring', 'Penalties', 'Timing', 'Positions', 'Teams'] as const

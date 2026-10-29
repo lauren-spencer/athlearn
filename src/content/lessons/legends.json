@@ -1,0 +1,94 @@
+{
+  "id": "legends",
+  "sport": "football",
+  "locale": "en",
+  "unit": "Legends & culture",
+  "unitOrder": 4,
+  "title": "All-time greats",
+  "order": 10,
+  "minutes": 4,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it matters",
+      "title": "The names you'll hear",
+      "art": "legendsIntro",
+      "body": "Fans and broadcasters measure every new star against a few ==all-time greats==. Know them and half the arguments at the watch party make sense.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Legend",
+      "num": 1,
+      "title": "Tom Brady · QB",
+      "art": "goat",
+      "body": "Won ==7 championships== over 23 seasons, six in New England and one in Tampa Bay. That's ==more than any single team== has won.",
+      "note": "You'll hear him called the GOAT: greatest of all time."
+    },
+    {
+      "type": "card",
+      "kicker": "Legend",
+      "num": 2,
+      "title": "Jerry Rice · WR",
+      "art": "rice",
+      "body": "Holds the career records for ==receiving yards and touchdown catches==, mostly in San Francisco. Many think no one will ever catch him.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Legend",
+      "num": 3,
+      "title": "Lawrence Taylor · LB",
+      "art": "ltrush",
+      "body": "Rushed the passer so well for New York in the '80s that teams started ==paying left tackles== big money, just to protect the QB's ==blind side==.",
+      "note": "That story is the heart of the book and movie The Blind Side."
+    },
+    {
+      "type": "card",
+      "kicker": "Legend",
+      "num": 4,
+      "title": "Walter Payton · RB",
+      "art": "sweetness",
+      "body": "Chicago's \"Sweetness\" ran with grace and punished tacklers. The league's top ==award for community service== is named after him.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Fan tip",
+      "title": "Know the nicknames",
+      "art": "nicknames",
+      "body": "Legends go by nicknames: ==Prime Time== (Deion Sanders, who also played pro baseball), ==Beast Mode== (Marshawn Lynch), ==Megatron== (Calvin Johnson) and Sweetness.",
+      "note": null
+    },
+    {
+      "type": "play",
+      "prompt": "He came off the blind side. Who should have blocked him?",
+      "play": {
+        "duration": 2.4,
+        "clock": "Q4 1:48",
+        "scene": { "los": 128, "players": [{ "side": "O", "x": 156, "y": 138 }, { "side": "O", "x": 180, "y": 138 }, { "side": "O", "x": 204, "y": 138 }, { "side": "O", "x": 228, "y": 138 }, { "side": "X", "x": 170, "y": 118 }, { "side": "X", "x": 190, "y": 118 }, { "side": "X", "x": 210, "y": 118 }] },
+        "actors": {
+          "qb": { "side": "O", "label": "QB", "path": [[0, 180, 158], [0.8, 180, 172], [2.4, 180, 172]] },
+          "lt": { "side": "O", "label": "LT", "path": [[0, 132, 138], [0.6, 126, 146], [1.2, 122, 152], [2.4, 124, 152]] },
+          "rush": { "side": "X", "label": "LB", "trail": true, "path": [[0, 98, 120], [0.6, 100, 148], [1.2, 128, 178], [1.7, 170, 178], [2.4, 172, 178]] }
+        },
+        "ball": [[0, 180, 158], [0.8, 180, 172], [2.4, 180, 172]],
+        "events": [
+          { "at": 0.2, "tag": "Snap" },
+          { "at": 1.7, "ring": ["qb", "rush"] },
+          { "at": 1.8, "tag": "Blind-side sack", "tone": "bad" }
+        ]
+      },
+      "options": ["The center", "The left tackle", "The right guard", "The tight end"],
+      "answer": 1,
+      "explain": "He came from the QB's left, the side a right-handed passer can't see. Protecting that blind side is the left tackle's job."
+    },
+    {
+      "type": "check",
+      "prompt": "Who has won the most championships of any player?",
+      "options": ["Joe Montana", "Tom Brady", "Jerry Rice", "Peyton Manning"],
+      "answer": 1,
+      "explain": "Tom Brady won 7. Joe Montana won 4, Peyton Manning 2. Jerry Rice won 3 as a receiver."
+    }
+  ]
+}

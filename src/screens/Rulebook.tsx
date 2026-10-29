@@ -53,7 +53,7 @@ export default function Rulebook() {
           const lesson = r.lesson ? getLesson(r.lesson) : undefined
           const canOpen = lesson && isUnlocked(progress, lessonsFor(lesson.sport), lesson)
           return (
-            <li key={r.term} className="rounded-xl border border-line bg-panel p-4">
+            <li key={`${r.term}-${r.yards ?? ""}`} className="rounded-xl border border-line bg-panel p-4">
               <div className="flex items-baseline justify-between gap-2">
                 <h2 className="font-label text-[19px] font-bold uppercase tracking-[0.06em]">
                   {r.term}

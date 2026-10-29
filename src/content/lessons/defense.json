@@ -1,0 +1,95 @@
+{
+  "id": "defense",
+  "sport": "football",
+  "locale": "en",
+  "unit": "Positions",
+  "unitOrder": 2,
+  "title": "Defense",
+  "order": 5,
+  "minutes": 4,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it matters",
+      "title": "Three levels",
+      "art": "defense11",
+      "body": "The defense has 11 too, stacked in ==three levels==: the line up front, linebackers behind them, and the ==secondary== deep.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Position",
+      "num": 1,
+      "title": "Defensive line",
+      "art": "dline",
+      "body": "Tackles in the middle, ends on the edges. They ==rush the passer== and ==plug running lanes==. Tackle the QB behind the line and it's a sack.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Position",
+      "num": 2,
+      "title": "Linebackers",
+      "art": "linebackers",
+      "body": "The do-everything level: ==tackle runners==, cover short passes, ==blitz== the QB. The middle linebacker usually calls the defense's play.",
+      "note": "He's often called the quarterback of the defense."
+    },
+    {
+      "type": "card",
+      "kicker": "Position",
+      "num": 3,
+      "title": "Cornerbacks",
+      "art": "corners",
+      "body": "Corners line up across from the wide receivers and ==shadow them== on every route. Their job is to break up passes, or ==pick them off==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Position",
+      "num": 4,
+      "title": "Safeties",
+      "art": "safeties",
+      "body": "The deepest players on the field. Safeties stop the long pass and make the tackle when everyone else misses. They're the ==last line of defense==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Strategy",
+      "title": "The blitz",
+      "art": "blitz",
+      "body": "A blitz sends ==extra rushers==, usually linebackers or a safety, at the QB. It can force a quick sack, but it leaves ==fewer players in coverage==.",
+      "note": null
+    },
+    {
+      "type": "play",
+      "prompt": "Which position got the sack?",
+      "play": {
+        "duration": 2.6,
+        "clock": "Q3 4:02",
+        "scene": "olineFull",
+        "actors": {
+          "qb": { "side": "O", "label": "QB", "path": [[0, 180, 158], [0.8, 180, 172], [2.6, 180, 172]] },
+          "mlb": { "side": "X", "label": "MLB", "trail": true, "path": [[0, 180, 84], [0.5, 192, 108], [1.1, 192, 142], [1.7, 184, 166], [2.6, 184, 166]] },
+          "cb": { "side": "X", "label": "CB", "path": [[0, 40, 112], [2.6, 52, 70]] },
+          "s": { "side": "X", "label": "S", "path": [[0, 240, 34], [2.6, 240, 24]] }
+        },
+        "ball": [[0, 180, 158], [0.8, 180, 172], [2.6, 180, 172]],
+        "events": [
+          { "at": 0.2, "tag": "Snap" },
+          { "at": 1.7, "ring": ["qb", "mlb"] },
+          { "at": 1.8, "tag": "Sack", "tone": "bad" }
+        ]
+      },
+      "options": ["Defensive end", "Linebacker", "Cornerback", "Safety"],
+      "answer": 1,
+      "explain": "He started at the second level, behind the line, then shot through the gap. That's a linebacker blitz."
+    },
+    {
+      "type": "check",
+      "prompt": "Who is the last line of defense against a deep pass?",
+      "options": ["Defensive tackle", "Middle linebacker", "Safety", "Defensive end"],
+      "answer": 2,
+      "explain": "Safeties play deepest. If a receiver gets behind everyone else, they're the ones left to stop him."
+    }
+  ]
+}

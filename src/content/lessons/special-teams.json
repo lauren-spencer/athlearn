@@ -1,0 +1,96 @@
+{
+  "id": "special-teams",
+  "sport": "football",
+  "locale": "en",
+  "unit": "Positions",
+  "unitOrder": 2,
+  "title": "Special teams",
+  "order": 6,
+  "minutes": 4,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it matters",
+      "title": "The third unit",
+      "art": "specialteams",
+      "body": "Any play with a kick belongs to ==special teams==: kickoffs, punts, field goals and extra points. Field position swings on them.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Position",
+      "num": 1,
+      "title": "Kicker",
+      "art": "kicker",
+      "body": "Kicks off and boots ==field goals and extra points==. A holder catches the snap and sets the ball down so the kicker can hit it.",
+      "note": "The holder is often the punter."
+    },
+    {
+      "type": "card",
+      "kicker": "Position",
+      "num": 2,
+      "title": "Punter",
+      "art": "punter",
+      "body": "On 4th down too far from a field goal, the punter ==kicks it away== as far as he can. Losing the ball 40 yards downfield beats losing it right here.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Position",
+      "num": 3,
+      "title": "Long snapper",
+      "art": "snapper",
+      "body": "A specialist who fires the ball ==about 15 yards back== to the punter, fast and on target. You only hear his name when ==something goes wrong==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Position",
+      "num": 4,
+      "title": "Returner",
+      "art": "returner",
+      "body": "Catches kickoffs and punts and tries to ==run them back==. Usually one of the fastest players on the roster.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The rule",
+      "title": "Fair catch",
+      "art": "faircatch",
+      "body": "A punt returner who ==waves an arm overhead== is calling a fair catch. Nobody can hit him, but he ==can't run with it== after the catch.",
+      "note": "Hitting him anyway: 15 yards."
+    },
+    {
+      "type": "play",
+      "prompt": "Why didn't anyone tackle the returner?",
+      "play": {
+        "duration": 3.0,
+        "clock": "Q1 9:15",
+        "scene": { "view": "full" },
+        "actors": {
+          "p": { "side": "O", "label": "P", "path": [[0, 60, 105], [3.0, 62, 105]] },
+          "g1": { "side": "O", "trail": true, "path": [[0, 92, 60], [2.6, 252, 84], [3.0, 256, 88]] },
+          "g2": { "side": "O", "trail": true, "path": [[0, 92, 150], [2.6, 252, 128], [3.0, 256, 124]] },
+          "pr": { "side": "X", "label": "PR", "path": [[0, 284, 108], [2.0, 272, 106], [3.0, 272, 106]] }
+        },
+        "ball": [[0, 92, 105], [0.4, 62, 105], [0.7, 64, 102], [1.7, 170, 40], [2.6, 272, 104], [3.0, 272, 104]],
+        "events": [
+          { "at": 0.1, "tag": "Snap" },
+          { "at": 1.8, "ring": ["pr"] },
+          { "at": 1.9, "tag": "Arm waved overhead" },
+          { "at": 2.6, "tag": "Caught. Play over", "tone": "good" }
+        ]
+      },
+      "options": ["He caught it in the end zone", "He signaled a fair catch", "The punt went out of bounds", "The coverage team was offside"],
+      "answer": 1,
+      "explain": "He waved his arm overhead before the ball came down. That's a fair catch: he's protected, the play ends, and his team starts from that spot."
+    },
+    {
+      "type": "check",
+      "prompt": "It's 4th and 15 at midfield. Who usually comes on?",
+      "options": ["The kicker, for a field goal", "The punter", "The long snapper, alone", "The returner"],
+      "answer": 1,
+      "explain": "Midfield is too far for a field goal, and 15 yards is a lot to gain on one play. Most teams punt."
+    }
+  ]
+}
