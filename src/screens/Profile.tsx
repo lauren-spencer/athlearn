@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { SPORTS, lessonsFor, unitsFor } from '../content'
 import { liveStreak, useProgress } from '../state/progress'
 import { Icons, Modal, Scoreboard, ScreenHeader, fmtNum } from '../components/ui'
+import { AccountCard } from '../components/Account'
 
 const LEVEL_NAME = { new: 'Brand new', basics: 'Knows the basics', details: 'Wants the details' }
 
 export default function Profile() {
-  const { progress, update, reset } = useProgress()
+  const { progress, update, reset, user } = useProgress()
   const nav = useNavigate()
   const [confirmReset, setConfirmReset] = useState(false)
   const lessons = lessonsFor(progress.sport)
@@ -75,6 +76,8 @@ export default function Profile() {
         </div>
       </section>
 
+      <AccountCard />
+
       <section className="mt-6 grid gap-2 px-5">
         <button className="btn-secondary w-full" onClick={() => nav('/welcome')}>
           Replay intro
@@ -87,7 +90,7 @@ export default function Profile() {
       <Modal
         open={confirmReset}
         title="Reset progress?"
-        body="This clears your streak, points and every lesson's mastery on this device."
+        body={`This clears your streak, points and every lesson's mastery ${user ? 'on every device signed in to this account' : 'on this device'}.`}
         onClose={() => setConfirmReset(false)}
         actions={
           <>

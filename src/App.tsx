@@ -10,6 +10,7 @@ import Final from './screens/Final'
 import Rulebook from './screens/Rulebook'
 import Practice from './screens/Practice'
 import Profile from './screens/Profile'
+import { AuthCallback, SignIn } from './screens/Auth'
 
 function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
@@ -84,6 +85,8 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Navigate to={progress.onboarded ? '/learn' : '/welcome'} replace />} />
       <Route path="/welcome" element={<Welcome />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/auth/callback" element={<AuthCallback />} />
       <Route
         element={
           <RequireSetup>

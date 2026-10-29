@@ -20,7 +20,7 @@ const GOALS: { id: Progress['goal']; title: string; sub: string }[] = [
 ]
 
 export default function Welcome() {
-  const { progress, update } = useProgress()
+  const { progress, update, cloud } = useProgress()
   const [params] = useSearchParams()
   const nav = useNavigate()
   const [step, setStep] = useState(Number(params.get('step')) || 0)
@@ -49,6 +49,11 @@ export default function Welcome() {
         <button className="btn-primary w-full" onClick={() => setStep(1)} autoFocus>
           Get started
         </button>
+        {cloud && !progress.onboarded && (
+          <button className="btn-secondary mt-2 w-full" onClick={() => nav('/signin')}>
+            I have an account
+          </button>
+        )}
       </motion.div>
     )
   }

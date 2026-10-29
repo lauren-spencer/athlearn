@@ -1,7 +1,9 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import type { LessonResult, Progress } from '../types'
+import type { User } from '@supabase/supabase-js'
+import type { Level, LessonResult, Progress } from '../types'
 import { lessonsFor } from '../content'
 import { POINTS_PER_CALL, POINTS_PER_LESSON, courseMastery, levelFromLesson, levelFromPractice, levelOf, maxLevel } from '../lib/mastery'
+import { supabase } from '../lib/supabase'
 
 const KEY = 'athlearn.progress'
 
@@ -37,6 +39,42 @@ const yesterdayKey = () => {
   return dayKey(d)
 }
 
+const dayValue = (k: string | null) => {
+  if (!k) return 0
+  const [y, m, d] = k.split('-').map(Number)
+  return new Date(y, m - 1, d).getTime()
+}
+
+/**
+ * Combine this device's progress with the account's. A fresh device takes the account as is;
+ * otherwise keep the best of both, so signing in never loses a lesson.
+ */
+export function mergeProgress(local: Progress, remote: Partial<Progress>): Progress {
+  const r: Progress = { ...DEFAULT_PROGRESS, ...remote }
+  if (!local.onboarded) return r
+  if (!r.onboarded) return local
+
+  const levels = { ...r.levels }
+  for (const [id, lv] of Object.entries(local.levels)) levels[id] = maxLevel(levels[id] ?? 'none', lv) as Level
+  const quizResults = { ...r.quizResults }
+  for (const [id, q] of Object.entries(local.quizResults)) if (!quizResults[id] || q.attempts > quizResults[id].attempts) quizResults[id] = q
+
+  const lt = dayValue(local.lastActive)
+  const rt = dayValue(r.lastActive)
+  const recent = lt === rt ? (local.streak >= r.streak ? local : r) : lt > rt ? local : r
+
+  return {
+    ...local,
+    levels,
+    quizResults,
+    streak: recent.streak,
+    lastActive: recent.lastActive,
+    points: Math.max(local.points, r.points),
+    practiced: Math.max(local.practiced, r.practiced),
+    perfect: Math.max(local.perfect, r.perfect),
+  }
+}
+
 /** The stored streak only counts if the user played today or yesterday. */
 export function liveStreak(p: Progress) {
   return p.lastActive === dayKey() || p.lastActive === yesterdayKey() ? p.streak : 0
@@ -48,6 +86,13 @@ interface Ctx {
   finishRun: (args: { lessonId: string; mode: 'lesson' | 'practice'; correct: number; total: number; seconds: number }) => LessonResult
   reset: () => void
   lastResult: LessonResult | null
+  /** False when Supabase isn't configured: no sign-in UI. */
+  cloud: boolean
+  user: User | null
+  /** 'pending' until the first auth check finishes; 'synced' once the account's progress is loaded. */
+  sync: 'off' | 'pending' | 'loading' | 'synced' | 'error'
+  signIn: (email: string) => Promise<string | null>
+  signOut: () => Promise<void>
 }
 
 const ProgressContext = createContext<Ctx | null>(null)
@@ -63,6 +108,71 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       /* ignore */
     }
   }, [progress])
+
+  const [user, setUser] = useState<User | null>(null)
+  const [sync, setSync] = useState<Ctx['sync']>(supabase ? 'pending' : 'off')
+  const userId = user?.id
+
+  useEffect(() => {
+    if (!supabase) return
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+      if (!session) setSync('off')
+    })
+    return () => data.subscription.unsubscribe()
+  }, [])
+
+  // Pull the account's progress on sign-in and whenever the tab comes back into view.
+  useEffect(() => {
+    if (!supabase || !userId) return
+    const db = supabase
+    let cancelled = false
+    const pull = async (first: boolean) => {
+      if (first) setSync('loading')
+      const { data, error } = await db.from('progress').select('data').eq('user_id', userId).maybeSingle()
+      if (cancelled) return
+      if (error) {
+        console.error('progress pull failed', error)
+        if (first) setSync('error')
+        return
+      }
+      if (data) {
+        setProgress((p) => {
+          const merged = mergeProgress(p, data.data as Partial<Progress>)
+          return JSON.stringify(merged) === JSON.stringify(p) ? p : merged
+        })
+      }
+      setSync('synced')
+    }
+    pull(true)
+    const onVisible = () => document.visibilityState === 'visible' && pull(false)
+    document.addEventListener('visibilitychange', onVisible)
+    return () => {
+      cancelled = true
+      document.removeEventListener('visibilitychange', onVisible)
+    }
+  }, [userId])
+
+  // Push changes once the account's copy has been merged in.
+  useEffect(() => {
+    if (!supabase || !userId || sync !== 'synced') return
+    const db = supabase
+    const t = setTimeout(async () => {
+      const { error } = await db.from('progress').upsert({ user_id: userId, data: progress, updated_at: new Date().toISOString() })
+      if (error) console.error('progress push failed', error)
+    }, 600)
+    return () => clearTimeout(t)
+  }, [progress, userId, sync])
+
+  const signIn = useCallback(async (email: string) => {
+    if (!supabase) return 'Sign-in is not set up.'
+    const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: `${location.origin}/auth/callback` } })
+    return error ? error.message : null
+  }, [])
+
+  const signOut = useCallback(async () => {
+    await supabase?.auth.signOut()
+  }, [])
 
   const update = useCallback((patch: Partial<Progress>) => setProgress((p) => ({ ...p, ...patch })), [])
 
@@ -114,7 +224,10 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     setLastResult(null)
   }, [])
 
-  const value = useMemo(() => ({ progress, update, finishRun, reset, lastResult }), [progress, update, finishRun, reset, lastResult])
+  const value = useMemo(
+    () => ({ progress, update, finishRun, reset, lastResult, cloud: !!supabase, user, sync, signIn, signOut }),
+    [progress, update, finishRun, reset, lastResult, user, sync, signIn, signOut],
+  )
   return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>
 }
 
