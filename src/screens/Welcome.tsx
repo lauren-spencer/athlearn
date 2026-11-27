@@ -8,8 +8,8 @@ import { Icons, Segments, Wordmark } from '../components/ui'
 import type { Progress } from '../types'
 
 const LEVELS: { id: Progress['level']; title: string; sub: string }[] = [
-  { id: 'new', title: 'Brand new', sub: "I'm not sure what a down is" },
-  { id: 'basics', title: 'I know the basics', sub: 'I follow along, but flags confuse me' },
+  { id: 'new', title: 'Brand new', sub: "I'm still figuring out how it works" },
+  { id: 'basics', title: 'I know the basics', sub: 'I follow along, but some calls confuse me' },
   { id: 'details', title: 'I want the details', sub: 'Teach me the fine print' },
 ]
 
@@ -42,7 +42,17 @@ export default function Welcome() {
           <br />
           <span className="text-flag">Not just the score.</span>
         </h1>
-        <div className="mt-5">
+        <ul className="mt-4 flex flex-wrap items-center gap-1.5" aria-label="Sports">
+          {SPORTS.filter((s) => s.ready).map((s) => (
+            <li key={s.id} className="rounded-full border border-flag/70 px-2.5 py-1 font-label text-[12px] font-bold uppercase tracking-label text-ink">
+              {s.name}
+            </li>
+          ))}
+          <li className="px-1 font-label text-[12px] font-bold uppercase tracking-label text-dim">
+            {SPORTS.filter((s) => !s.ready).map((s) => s.name).join(', ')} soon
+          </li>
+        </ul>
+        <div className="mt-4">
           <Demo />
         </div>
         <div className="mt-auto grid gap-2 pt-6">

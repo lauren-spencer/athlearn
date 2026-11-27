@@ -1,0 +1,95 @@
+{
+  "id": "bb-violations",
+  "sport": "basketball",
+  "locale": "en",
+  "unit": "Violations and fouls",
+  "unitOrder": 2,
+  "title": "Violations",
+  "order": 2,
+  "minutes": 4,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it matters",
+      "title": "Whistle, no foul",
+      "art": "bb.violation",
+      "body": "A ==violation== is a rules mistake that doesn't involve hitting anyone. No free throws: the other team just ==gets the ball==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Violation",
+      "num": 1,
+      "title": "Traveling",
+      "art": "bb.travel",
+      "body": "Once you stop dribbling you get ==two steps==. Take a third, or lift your pivot foot before you pass or shoot, and it's traveling.",
+      "note": "Refs and fans argue about this one constantly."
+    },
+    {
+      "type": "card",
+      "kicker": "Violation",
+      "num": 2,
+      "title": "Double dribble",
+      "art": "bb.double",
+      "body": "Dribble, pick the ball up, then start dribbling again: ==double dribble==. Dribbling with ==both hands at once== counts too.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Violation",
+      "num": 3,
+      "title": "Three seconds",
+      "art": "bb.lane",
+      "body": "An offensive player can't stand in ==the lane==, the painted area under the hoop, for more than ==3 seconds== in a row.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Violation",
+      "num": 4,
+      "title": "Backcourt",
+      "art": "bb.backcourt",
+      "body": "The offense has ==8 seconds== to get the ball past half court. Once it's over, it ==can't go back== to the other half.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Violation",
+      "num": 5,
+      "title": "Goaltending",
+      "art": "bb.goaltend",
+      "body": "You can't block a shot that's ==on its way down== toward the hoop or already touching the rim. If you do, ==the basket counts anyway==.",
+      "note": null
+    },
+    {
+      "type": "play",
+      "prompt": "Why did the whistle blow?",
+      "play": {
+        "duration": 2.6,
+        "clock": "Q2 3:12",
+        "scene": { "view": "court", "players": [{ "side": "O", "x": 262, "y": 40 }, { "side": "X", "x": 280, "y": 50 }, { "side": "O", "x": 300, "y": 160 }, { "side": "X", "x": 316, "y": 150 }] },
+        "actors": {
+          "pg": { "side": "O", "label": "PG", "trail": true, "path": [[0, 196, 150], [1.1, 256, 118], [1.4, 268, 112], [1.7, 280, 108], [2.0, 292, 102], [2.6, 292, 102]] },
+          "d": { "side": "X", "path": [[0, 300, 96], [1.2, 306, 98], [2.6, 306, 98]] }
+        },
+        "ball": [[0, 200, 160], [0.3, 214, 150], [0.55, 226, 146], [0.8, 238, 136], [1.1, 254, 128], [1.4, 266, 104], [2.0, 290, 94], [2.6, 290, 94]],
+        "events": [
+          { "at": 1.1, "tag": "Picks it up", "tone": "ink" },
+          { "at": 2.0, "ring": ["pg"] },
+          { "at": 2.0, "flag": true },
+          { "at": 2.1, "tag": "Whistle", "tone": "bad" }
+        ]
+      },
+      "options": ["Traveling", "Three seconds", "Goaltending", "Shot clock violation"],
+      "answer": 0,
+      "explain": "He picked up his dribble, then took three steps. Two is the limit, so that's traveling."
+    },
+    {
+      "type": "check",
+      "prompt": "A defender swats a shot that was already coming down toward the hoop. What happens?",
+      "options": ["Clean block, play on", "The basket counts", "Jump ball", "Two free throws"],
+      "answer": 1,
+      "explain": "That's goaltending. The shooter's team gets the points as if the shot went in."
+    }
+  ]
+}

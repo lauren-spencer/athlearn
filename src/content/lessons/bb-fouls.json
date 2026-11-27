@@ -1,0 +1,93 @@
+{
+  "id": "bb-fouls",
+  "sport": "basketball",
+  "locale": "en",
+  "unit": "Violations and fouls",
+  "unitOrder": 2,
+  "title": "Fouls",
+  "order": 3,
+  "minutes": 4,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it matters",
+      "title": "Personal fouls",
+      "art": "bb.foul",
+      "body": "Illegal contact, like ==pushing, holding or hitting a shooter's arm==, is a personal foul. Fouls decide close games because they give away ==free points==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Foul",
+      "num": 1,
+      "title": "Shooting fouls",
+      "art": "bb.shootingfoul",
+      "body": "Fouled while shooting and you miss? You get ==free throws==: ==3 if you were shooting a three==, 2 for anything else.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Foul",
+      "num": 2,
+      "title": "And one",
+      "art": "bb.andone",
+      "body": "Make the shot while getting fouled and ==the basket still counts==. You also get ==1 free throw==. Fans and announcers call it an and-one.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Foul",
+      "num": 3,
+      "title": "Block or charge",
+      "art": "bb.charge",
+      "body": "A driver runs into a defender. If the defender was ==set before the contact==, it's a charge on the offense. If the defender was still sliding in, it's a ==blocking foul==.",
+      "note": "One of the hardest calls in sports. Replays rarely settle it."
+    },
+    {
+      "type": "card",
+      "kicker": "The rule",
+      "title": "The bonus",
+      "art": "bb.bonus",
+      "body": "Once a team commits ==5 fouls in a quarter==, every foul after that sends the other team to the line. That's called being ==in the bonus==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The rule",
+      "title": "Fouling out",
+      "art": "bb.foulout",
+      "body": "A pro player who commits ==6 personal fouls== has to sit for the rest of the game. In college it's 5. Stars in foul trouble often ==sit early to stay safe==.",
+      "note": null
+    },
+    {
+      "type": "play",
+      "prompt": "The defender got there first. What's the call?",
+      "play": {
+        "duration": 2.4,
+        "clock": "Q3 7:45",
+        "scene": { "view": "court", "players": [{ "side": "O", "x": 262, "y": 40 }, { "side": "X", "x": 280, "y": 52 }, { "side": "O", "x": 300, "y": 160 }, { "side": "X", "x": 318, "y": 150 }] },
+        "actors": {
+          "d": { "side": "X", "label": "D", "path": [[0, 300, 112], [0.5, 298, 104], [1.4, 298, 104], [1.8, 312, 98], [2.4, 314, 98]] },
+          "pg": { "side": "O", "label": "PG", "trail": true, "path": [[0, 216, 138], [1.4, 288, 108], [1.8, 292, 106], [2.4, 292, 106]] }
+        },
+        "ball": [[0, 220, 148], [0.35, 236, 136], [0.7, 252, 130], [1.05, 270, 120], [1.4, 284, 116], [1.8, 288, 116], [2.4, 288, 116]],
+        "events": [
+          { "at": 0.5, "tag": "Feet set", "tone": "ink" },
+          { "at": 1.4, "ring": ["d", "pg"] },
+          { "at": 1.5, "flag": true },
+          { "at": 1.6, "tag": "Contact", "tone": "bad" }
+        ]
+      },
+      "options": ["Blocking foul on the defense", "Charging foul on the offense", "Traveling", "No call"],
+      "answer": 1,
+      "explain": "The defender was set in the driver's path before the contact, so the driver is called for a charge. Any basket wouldn't count."
+    },
+    {
+      "type": "check",
+      "prompt": "A player is fouled shooting a three and misses. How many free throws?",
+      "options": ["1", "2", "3", "None"],
+      "answer": 2,
+      "explain": "Free throws match the shot: fouled on a three-point attempt means 3 free throws."
+    }
+  ]
+}

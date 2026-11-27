@@ -14,8 +14,11 @@ export interface PlayerSpec {
 }
 
 export interface Scene {
-  /** zoom = ~25 yards around the ball, downfield is up. full = whole field, left to right. */
-  view?: 'zoom' | 'full'
+  /**
+   * Football: zoom = ~25 yards around the ball, downfield is up; full = whole field, left to right.
+   * Other sports draw their whole playing surface left to right (diamond: home plate at the bottom).
+   */
+  view?: 'zoom' | 'full' | 'court' | 'pitch' | 'diamond' | 'rink'
   los?: number
   lineToGain?: number
   /** true / 'top' = end zone downfield; 'bottom' = the offense's own end zone */

@@ -1,4 +1,5 @@
 import type { PlayerSpec, Scene } from '../types'
+import { BASKETBALL } from './art-basketball'
 
 /*
  * Named diagrams referenced by `art` in lesson JSON. Coordinates are on the
@@ -818,5 +819,5 @@ export const ART: Record<string, Scene> = {
 
 export function resolveArt(art: string | Scene): Scene {
   if (typeof art !== 'string') return art
-  return ART[art] ?? {}
+  return ART[art] ?? BASKETBALL[art] ?? {}
 }

@@ -107,7 +107,7 @@ export default function Learn() {
 function SportSwitcher({ current }: { current: string }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
-  const nav = useNavigate()
+  const { update } = useProgress()
   useEffect(() => {
     const close = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false)
     document.addEventListener('mousedown', close)
@@ -123,14 +123,20 @@ function SportSwitcher({ current }: { current: string }) {
       {open && (
         <div role="menu" className="absolute left-0 top-8 z-30 w-60 overflow-hidden rounded-xl border border-line-2 bg-panel-2 shadow-xl">
           {SPORTS.map((s) => (
-            <div key={s.id} role="menuitem" aria-disabled={!s.ready} className={`flex items-center justify-between px-4 py-3 ${s.ready ? 'text-ink' : 'text-dim'}`}>
+            <button
+              key={s.id}
+              role="menuitem"
+              disabled={!s.ready}
+              onClick={() => {
+                update({ sport: s.id })
+                setOpen(false)
+              }}
+              className={`flex w-full items-center justify-between px-4 py-3 text-left ${s.ready ? 'text-ink hover:bg-panel' : 'text-dim'}`}
+            >
               <span className="font-label text-[15px] font-bold uppercase tracking-label">{s.name}</span>
               {s.name === current ? <Icons.check className="h-4 w-4 text-flag" /> : !s.ready && <span className="font-label text-[11px] font-bold uppercase tracking-label">Soon</span>}
-            </div>
+            </button>
           ))}
-          <button role="menuitem" onClick={() => nav('/welcome?step=1')} className="flex w-full items-center gap-2 border-t border-line px-4 py-3 font-label text-[14px] font-bold uppercase tracking-label text-flag hover:bg-panel">
-            <Icons.plus className="h-4 w-4" /> Learn a new sport
-          </button>
         </div>
       )}
     </div>

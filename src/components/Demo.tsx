@@ -7,17 +7,19 @@ import { Icons, MasterySquare, RichText, Scoreboard } from './ui'
 
 /**
  * Self-running tour of the core loop for first-time visitors: a card, a play, the call, mastery.
- * Built from the real Holding lesson so it never drifts from the app. Tap to skip ahead.
+ * Built from real lessons in two sports so it never drifts from the app and doesn't read as
+ * football-only. Tap to skip ahead.
  */
 
+const cardLesson = getLesson('bb-basics')!
+const card = cardLesson.steps.find((s) => s.type === 'card' && s.art === 'bb.three') as CardStep
 const lesson = getLesson('holding')!
-const card = lesson.steps.find((s) => s.type === 'card' && s.art === 'grab') as CardStep
 const play = lesson.steps.find((s) => s.type === 'play') as PlayStep
 const unit = ['false-start', 'holding', 'roughing'].map((id) => getLesson(id)!)
 
 const SCENES = [
-  { caption: 'Learn one rule at a time', sub: 'Six quick cards, a few minutes a lesson', ms: 4200 },
-  { caption: 'Watch a real play', sub: 'Every lesson ends on the field', ms: (play.play.duration + 1.4) * 1000 },
+  { caption: 'Learn one rule at a time', sub: 'Pick a sport. Six quick cards a lesson.', ms: 4200 },
+  { caption: 'Watch a real play', sub: 'Every lesson ends on a real play', ms: (play.play.duration + 1.4) * 1000 },
   { caption: 'Make the call', sub: "You're the ref. Right or wrong, you learn why.", ms: 4800 },
   { caption: 'Level up as you go', sub: 'Mastery, streaks and points on every lesson', ms: 4200 },
 ]
@@ -99,7 +101,7 @@ export function Demo() {
 function CardScene() {
   return (
     <>
-      <div className="eyebrow text-[11px] text-flag">Lesson · {lesson.title}</div>
+      <div className="eyebrow text-[11px] text-flag">Basketball · {cardLesson.title}</div>
       <div className="title mt-0.5 text-[26px]">{card.title}</div>
       <Playbook art={card.art} className="mt-3" />
       <p className="mt-3 line-clamp-3 text-[13px] leading-snug text-ink/90">
@@ -112,7 +114,7 @@ function CardScene() {
 function PlayScene({ t }: { t: number }) {
   return (
     <>
-      <div className="eyebrow text-[11px] text-flag">Make the call</div>
+      <div className="eyebrow text-[11px] text-flag">Football · Make the call</div>
       <div className="title mt-0.5 text-[24px]">{play.prompt}</div>
       <div className="mt-3">
         <PlayDiagram play={play.play} t={Math.min(play.play.duration, Math.max(0, t / 1000 - 0.3))} />

@@ -1,6 +1,6 @@
 # athlearn
 
-Micro-lessons on sports rules, one rule at a time: read 6 cards, make the call on an animated play, build mastery. Football first.
+Micro-lessons on sports rules, one rule at a time: read 6 cards, make the call on an animated play, build mastery. Football and basketball today; soccer, baseball and hockey next.
 
 React + Vite + TypeScript + Tailwind, Framer Motion for transitions, progress in `localStorage` (`athlearn.progress`). Optional Supabase accounts (email magic link) sync that same progress across devices.
 
@@ -15,6 +15,7 @@ npm run build
 Drop a JSON file in `src/content/lessons/`. It's picked up automatically and sorted by `order`; `unit` + `unitOrder` group it into an accordion. Each lesson is 6 `card` steps, then a `play` and a `check`.
 
 - `==phrase==` in a card body gets the yellow underline.
+- `scene.view` picks the surface: football `zoom` (default) or `full`, or `court`, `pitch`, `diamond`, `rink` for other sports (see `src/components/Surfaces.tsx`). Sport art lives in `src/content/art-<sport>.ts`.
 - `art` is either a named diagram from `src/content/art.ts` or an inline scene object (players, arrows, rings, tags, zones, `los`, `lineToGain`, `endzone`).
 - `play` paths are `[seconds, x, y]` keyframes on a 360×210 field (downfield is up, line of scrimmage around y=128). `scene` draws dimmed backdrop players. Events: `tag`, `ring` (actor ids), `flag`.
 

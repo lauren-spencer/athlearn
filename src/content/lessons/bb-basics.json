@@ -1,0 +1,93 @@
+{
+  "id": "bb-basics",
+  "sport": "basketball",
+  "locale": "en",
+  "unit": "The basics",
+  "unitOrder": 1,
+  "title": "Court and scoring",
+  "order": 1,
+  "minutes": 3,
+  "steps": [
+    {
+      "type": "card",
+      "kicker": "Why it matters",
+      "title": "Five on five",
+      "art": "bb.five",
+      "body": "Two teams of ==five== try to put the ball through the other team's hoop. Pro games are ==four 12-minute quarters==, and the score moves fast.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Scoring",
+      "num": 1,
+      "title": "Two points",
+      "art": "bb.two",
+      "body": "Any basket made from ==inside the arc== is worth 2. That includes layups and dunks right at the rim.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "Scoring",
+      "num": 2,
+      "title": "Three points",
+      "art": "bb.three",
+      "body": "Shoot from ==behind the three-point line== and it's worth 3. Both feet have to be behind it: ==a foot on the line makes it a two==.",
+      "note": "The corner three is the shortest three on the court, so teams love it."
+    },
+    {
+      "type": "card",
+      "kicker": "Scoring",
+      "num": 3,
+      "title": "Free throws",
+      "art": "bb.ft",
+      "body": "After certain fouls, a player shoots ==free throws== from the line with nobody guarding. Each one made is worth ==1 point==.",
+      "note": null
+    },
+    {
+      "type": "card",
+      "kicker": "The rule",
+      "title": "The shot clock",
+      "art": "bb.shotclock",
+      "body": "The offense has ==24 seconds== to get off a shot that hits the rim. If time runs out, the ball goes to the ==other team==.",
+      "note": "Grab an offensive rebound and the clock resets to 14."
+    },
+    {
+      "type": "card",
+      "kicker": "Fan tip",
+      "title": "Score, then defend",
+      "art": "bb.inbound",
+      "body": "After a made basket the ==other team inbounds== from under the hoop and attacks the other way. Each team gets ==about 100 possessions== a game.",
+      "note": null
+    },
+    {
+      "type": "play",
+      "prompt": "How many points is this shot worth?",
+      "play": {
+        "duration": 2.6,
+        "clock": "Q4 0:24",
+        "scene": { "view": "court", "players": [{ "side": "O", "x": 300, "y": 146 }, { "side": "X", "x": 316, "y": 134 }, { "side": "O", "x": 300, "y": 64 }, { "side": "X", "x": 316, "y": 76 }] },
+        "actors": {
+          "pg": { "side": "O", "label": "PG", "path": [[0, 220, 140], [0.8, 226, 136], [2.6, 226, 136]] },
+          "sg": { "side": "O", "label": "SG", "path": [[0, 262, 40], [0.8, 240, 58], [2.6, 240, 58]] },
+          "d": { "side": "X", "path": [[0, 290, 84], [1.2, 254, 66], [2.6, 252, 66]] }
+        },
+        "ball": [[0, 224, 132], [0.8, 226, 132], [1.0, 242, 64], [1.3, 242, 56], [1.9, 296, 50], [2.4, 331, 105], [2.6, 331, 108]],
+        "events": [
+          { "at": 1.3, "ring": ["sg"] },
+          { "at": 1.3, "tag": "Shot" },
+          { "at": 2.4, "tag": "Swish", "tone": "good" }
+        ]
+      },
+      "options": ["1 point", "2 points", "3 points", "It doesn't count"],
+      "answer": 2,
+      "explain": "He let it go with both feet behind the arc, so it's a three."
+    },
+    {
+      "type": "check",
+      "prompt": "A player is fouled, shoots two free throws and makes one. How many points?",
+      "options": ["1 point", "2 points", "3 points", "None"],
+      "answer": 0,
+      "explain": "Each free throw made is worth 1, so one make is 1 point."
+    }
+  ]
+}

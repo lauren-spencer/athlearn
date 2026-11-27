@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import type { Keyframe, Play, PlayerSpec, Pt, Scene, Tone } from '../types'
 import { resolveArt } from '../content/art'
+import { BallMark, CallMark, SURFACE_BG, Surface, type View } from './Surfaces'
 
 export const W = 360
 export const H = 210
@@ -95,7 +96,7 @@ function Player({ p }: { p: PlayerSpec }) {
   const filled = p.filled ?? p.label === 'QB'
   return (
     <g opacity={op}>
-      <circle cx={p.x} cy={p.y} r={r} fill={filled ? '#F2F4F8' : '#0E2419'} stroke="#F2F4F8" strokeWidth={r > 10 ? 4 : 2.4} />
+      <circle cx={p.x} cy={p.y} r={r} fill={filled ? '#F2F4F8' : 'var(--pb-bg)'} stroke="#F2F4F8" strokeWidth={r > 10 ? 4 : 2.4} />
       {p.label && r <= 10 && (
         <text x={p.x} y={p.y + r + 11} textAnchor="middle" fontSize="9" fontWeight="700" letterSpacing="1" className="font-label" fill="#F2F4F8" fillOpacity="0.75">
           {p.label}
@@ -137,24 +138,8 @@ function Ring({ x, y, r = 18, opacity = 1, scale = 1 }: { x: number; y: number; 
   return <circle cx={x} cy={y} r={r * scale} fill="none" stroke="#FFC531" strokeWidth="2.6" opacity={opacity} />
 }
 
-function Flag({ x, y, opacity = 1 }: { x: number; y: number; opacity?: number }) {
-  return (
-    <g opacity={opacity} transform={`translate(${x} ${y})`}>
-      <path d="M-7,-9 C-2,-12 2,-6 8,-9 L6,5 C1,8 -3,2 -9,5 Z" fill="#FFC531" stroke="#0D1117" strokeWidth="1" />
-    </g>
-  )
-}
-
-function Ball({ x, y }: { x: number; y: number }) {
-  return (
-    <g transform={`translate(${x} ${y})`}>
-      <ellipse rx="5.5" ry="3.6" fill="#C98B52" stroke="#0E2419" strokeWidth="1" />
-      <line x1="-2" x2="2" y1="0" y2="0" stroke="#F2F4F8" strokeWidth="0.9" />
-    </g>
-  )
-}
-
 function SceneLayer({ scene, uid }: { scene: Scene; uid: string }) {
+  const view = scene.view ?? 'zoom'
   return (
     <g>
       {scene.zones?.map((z, i) => (
@@ -167,9 +152,9 @@ function SceneLayer({ scene, uid }: { scene: Scene; uid: string }) {
       {scene.lineToGain !== undefined && <line x1="0" x2={W} y1={scene.lineToGain} y2={scene.lineToGain} stroke="#FFC531" strokeWidth="2.2" />}
       {scene.arrows?.map((a, i) => <Arrow key={i} {...a} id={`${uid}-a${i}`} />)}
       {scene.players?.map((p, i) => <Player key={i} p={p} />)}
-      {scene.ball && <Ball x={scene.ball[0]} y={scene.ball[1]} />}
+      {scene.ball && <BallMark view={view} x={scene.ball[0]} y={scene.ball[1]} />}
       {scene.rings?.map((r, i) => <Ring key={i} {...r} />)}
-      {scene.flag && <Flag x={scene.flag[0]} y={scene.flag[1]} />}
+      {scene.flag && <CallMark view={view} x={scene.flag[0]} y={scene.flag[1]} />}
       {scene.tags?.map((t, i) => <Tag key={i} {...t} />)}
     </g>
   )
@@ -184,10 +169,11 @@ function useUid() {
   return ref.current
 }
 
-function Frame({ view, children, className = '', title }: { view?: Scene['view']; children: React.ReactNode; className?: string; title?: string }) {
+function Frame({ view = 'zoom', endzone, children, className = '', title }: { view?: View; endzone?: Scene['endzone']; children: React.ReactNode; className?: string; title?: string }) {
+  const bg = SURFACE_BG[view]
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className={`block w-full rounded-xl bg-chalk ${className}`} role="img" aria-label={title ?? 'Play diagram'}>
-      {view === 'full' ? <FullField /> : null}
+    <svg viewBox={`0 0 ${W} ${H}`} className={`block w-full rounded-xl ${className}`} style={{ background: bg, ['--pb-bg' as string]: bg }} role="img" aria-label={title ?? 'Play diagram'}>
+      {view === 'zoom' ? <ZoomField endzone={endzone} /> : view === 'full' ? <FullField /> : <Surface view={view} />}
       {children}
     </svg>
   )
@@ -197,8 +183,7 @@ export function Playbook({ art, className, title }: { art: string | Scene; class
   const scene = resolveArt(art)
   const uid = useUid()
   return (
-    <Frame view={scene.view} className={className} title={title}>
-      {scene.view !== 'full' && <ZoomField endzone={scene.endzone} />}
+    <Frame view={scene.view} endzone={scene.endzone} className={className} title={title}>
       <SceneLayer scene={scene} uid={uid} />
     </Frame>
   )
@@ -282,8 +267,7 @@ export function PlayDiagram({ play, t }: { play: Play; t: number }) {
   const ringAt = ringEvent ? centroid(ringEvent.ring!.map((id) => pos(id, ringEvent.at))) : ([W / 2, H / 2] as Pt)
 
   return (
-    <Frame view={base.view} title="Animated play">
-      {base.view !== 'full' && <ZoomField endzone={base.endzone} />}
+    <Frame view={base.view} endzone={base.endzone} title="Animated play">
       <SceneLayer scene={{ ...base, players: base.players?.map((p) => ({ ...p, dim: true })) }} uid={uid} />
 
       {Object.entries(play.actors).map(([id, a]) =>
@@ -297,7 +281,7 @@ export function PlayDiagram({ play, t }: { play: Play; t: number }) {
       })}
       {play.ball && (() => {
         const [x, y] = interp(play.ball, t)
-        return <Ball x={x} y={y} />
+        return <BallMark view={base.view ?? 'zoom'} x={x} y={y} />
       })()}
 
       {play.events.map((e, i) => {
@@ -309,7 +293,7 @@ export function PlayDiagram({ play, t }: { play: Play; t: number }) {
           const k = clamp01((t - e.at) / 0.4)
           const fx = ringAt[0] + 26
           const fy = ringAt[1] + 10
-          return <Flag key={i} x={fx} y={fy - (1 - k) * 60} opacity={Math.min(1, k * 3)} />
+          return <CallMark key={i} view={base.view ?? 'zoom'} x={fx} y={fy - (1 - k) * 60} opacity={Math.min(1, k * 3)} />
         }
         return null
       })}

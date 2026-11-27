@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CATEGORIES, RULEBOOK } from '../content/rulebook'
+import { CATEGORIES, rulesFor } from '../content/rulebook'
 import { getLesson, lessonsFor } from '../content'
 import { useProgress } from '../state/progress'
 import { isUnlocked } from '../lib/mastery'
@@ -11,10 +11,13 @@ export default function Rulebook() {
   const [q, setQ] = useState('')
   const [cat, setCat] = useState<(typeof CATEGORIES)[number]>('All')
 
+  const rules = useMemo(() => rulesFor(progress.sport), [progress.sport])
+  const cats = CATEGORIES.filter((c) => c === 'All' || rules.some((r) => r.category === c))
+
   const results = useMemo(() => {
     const needle = q.trim().toLowerCase()
-    return RULEBOOK.filter((r) => (cat === 'All' || r.category === cat) && (!needle || `${r.term} ${r.plain} ${r.detail}`.toLowerCase().includes(needle)))
-  }, [q, cat])
+    return rules.filter((r) => (cat === 'All' || r.category === cat) && (!needle || `${r.term} ${r.plain} ${r.detail}`.toLowerCase().includes(needle)))
+  }, [q, cat, rules])
 
   return (
     <div className="pb-8">
@@ -30,12 +33,12 @@ export default function Rulebook() {
             type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Holding, safety, offside…"
+            placeholder={progress.sport === 'basketball' ? 'Traveling, charge, bonus…' : 'Holding, safety, offside…'}
             className="h-12 w-full rounded-xl border border-line-2 bg-panel pl-11 pr-4 text-[16px] text-ink placeholder:text-dim focus:border-flag focus:outline-none"
           />
         </div>
         <div className="scroll-hide -mx-5 mt-3 flex gap-2 overflow-x-auto px-5">
-          {CATEGORIES.map((c) => (
+          {cats.map((c) => (
             <button
               key={c}
               onClick={() => setCat(c)}
@@ -53,11 +56,11 @@ export default function Rulebook() {
           const lesson = r.lesson ? getLesson(r.lesson) : undefined
           const canOpen = lesson && isUnlocked(progress, lessonsFor(lesson.sport), lesson)
           return (
-            <li key={`${r.term}-${r.yards ?? ""}`} className="rounded-xl border border-line bg-panel p-4">
+            <li key={`${r.term}-${r.badge ?? ""}`} className="rounded-xl border border-line bg-panel p-4">
               <div className="flex items-baseline justify-between gap-2">
                 <h2 className="font-label text-[19px] font-bold uppercase tracking-[0.06em]">
                   {r.term}
-                  {r.yards && <span className="text-flag"> · {r.yards}</span>}
+                  {r.badge && <span className="text-flag"> · {r.badge}</span>}
                 </h2>
                 <span className="eyebrow text-[10px] text-dim">{r.category}</span>
               </div>

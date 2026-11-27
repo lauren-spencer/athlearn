@@ -44,7 +44,8 @@ export interface Sport {
 
 export const SPORTS: Sport[] = [
   { id: 'football', name: 'Football', course: 'Pro football', ready: true },
-  { id: 'basketball', name: 'Basketball', course: 'Basketball rules', ready: false },
-  { id: 'soccer', name: 'Soccer', course: 'Soccer rules', ready: false },
-  { id: 'baseball', name: 'Baseball', course: 'Baseball rules', ready: false },
+  { id: 'basketball', name: 'Basketball', course: 'Pro basketball', ready: true },
+  { id: 'soccer', name: 'Soccer', course: 'Soccer', ready: false },
+  { id: 'baseball', name: 'Baseball', course: 'Pro baseball', ready: false },
+  { id: 'hockey', name: 'Hockey', course: 'Pro hockey', ready: false },
 ]

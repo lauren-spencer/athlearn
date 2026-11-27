@@ -11,6 +11,7 @@ import Rulebook from './screens/Rulebook'
 import Practice from './screens/Practice'
 import Profile from './screens/Profile'
 import { AuthCallback, SignIn } from './screens/Auth'
+import ArtSheet from './screens/ArtSheet'
 
 function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
@@ -87,6 +88,7 @@ function AppRoutes() {
       <Route path="/welcome" element={<Welcome />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
+      {import.meta.env.DEV && <Route path="/dev/art" element={<ArtSheet />} />}
       <Route
         element={
           <RequireSetup>

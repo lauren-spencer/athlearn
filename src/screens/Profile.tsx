@@ -25,7 +25,7 @@ export default function Profile() {
     { title: 'Perfect lesson', sub: 'Every call right', got: progress.perfect > 0 },
     { title: 'On a roll', sub: '3-day streak', got: progress.streak >= 3 },
     { title: 'Basics down', sub: 'Finish Unit 1', got: unitDone(0) },
-    { title: 'Penalty box', sub: 'Finish Unit 2', got: unitDone(1) },
+    { title: 'Moving up', sub: 'Finish Unit 2', got: unitDone(1) },
     { title: 'Film study', sub: 'Do a practice review', got: progress.practiced > 0 },
   ]
 
